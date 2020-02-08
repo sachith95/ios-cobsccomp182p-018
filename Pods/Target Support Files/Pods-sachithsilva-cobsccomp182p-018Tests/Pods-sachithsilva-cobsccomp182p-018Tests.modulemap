@@ -1,0 +1,6 @@
+framework module Pods_sachithsilva_cobsccomp182p_018Tests {
+  umbrella header "Pods-sachithsilva-cobsccomp182p-018Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}
