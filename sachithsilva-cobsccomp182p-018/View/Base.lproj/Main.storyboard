@@ -121,7 +121,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="47.826086956521742" y="20.758928571428569"/>
+            <point key="canvasLocation" x="-1291" y="-228"/>
         </scene>
         <!--User Register View Controller-->
         <scene sceneID="S8o-6Z-wSf">
@@ -131,8 +131,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lets create a account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1t-Pa-a4g">
-                                <rect key="frame" x="20" y="74" width="195" height="26"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lets create an account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1t-Pa-a4g">
+                                <rect key="frame" x="20" y="74" width="205.5" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="26" id="FTP-Yu-yfp"/>
                                 </constraints>
@@ -194,18 +194,15 @@
                             <constraint firstItem="SfI-gD-Gfa" firstAttribute="trailing" secondItem="qSS-0W-nmm" secondAttribute="trailing" constant="20" id="rcW-0s-DoY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SfI-gD-Gfa"/>
-                        <connections>
-                            <outlet property="passwordTextField" destination="GeA-Ve-Bc4" id="WMP-qE-LGj"/>
-                        </connections>
                     </view>
                     <connections>
-                        <outlet property="emailTextField" destination="1jp-Se-o8B" id="68Q-DV-ElO"/>
-                        <outlet property="passwordTextField" destination="Xx0-4e-aJv" id="Zit-Zi-3Yt"/>
+                        <outlet property="emailTextField" destination="1jp-Se-o8B" id="KGe-cK-Oha"/>
+                        <outlet property="passwordTextField" destination="GeA-Ve-Bc4" id="qoh-oa-3hl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dbr-Zo-0fD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="930.43478260869574" y="11.383928571428571"/>
+            <point key="canvasLocation" x="-306" y="-228"/>
         </scene>
     </scenes>
     <resources>
