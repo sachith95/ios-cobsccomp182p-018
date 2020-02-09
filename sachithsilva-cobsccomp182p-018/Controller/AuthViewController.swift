@@ -24,7 +24,7 @@ class AuthViewController: RootViewController {
     }
     
     @IBAction func createAccButtonPressed(_ sender: Any) {
-         self.performSegue(withIdentifier: "userRegistration", sender: self)
+//         self.performSegue(withIdentifier: "userRegistration", sender: self)
     }
     
     func login() {
@@ -46,7 +46,7 @@ class AuthViewController: RootViewController {
             } else {
                 print("Login Success.")
                 
-                self.performSegue(withIdentifier: "goToChat", sender: self)
+                self.performSegue(withIdentifier: "loginSuccessSegue", sender: self)
                 
                 // SVProgressHUD.dismiss()
             }
