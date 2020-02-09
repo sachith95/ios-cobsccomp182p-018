@@ -22,6 +22,7 @@
 		84F7FA4E23EEF4DF00A92637 /* UserRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F7FA4D23EEF4DF00A92637 /* UserRegisterViewController.swift */; };
 		84F7FA5423F0745A00A92637 /* RecentEventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F7FA5323F0745A00A92637 /* RecentEventTableViewController.swift */; };
 		84F7FA5623F0754C00A92637 /* FirebaseRequestFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F7FA5523F0754C00A92637 /* FirebaseRequestFetcher.swift */; };
+		CE1D2C5E23F09A3600374E1D /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1D2C5D23F09A3600374E1D /* CustomTableViewCell.swift */; };
 		EE27BFBCB3926F9AEBB2C7CB /* Pods_sachithsilva_cobsccomp182p_018Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77AED15E8EE75F2802311500 /* Pods_sachithsilva_cobsccomp182p_018Tests.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		84F7FA5323F0745A00A92637 /* RecentEventTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentEventTableViewController.swift; sourceTree = "<group>"; };
 		84F7FA5523F0754C00A92637 /* FirebaseRequestFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRequestFetcher.swift; sourceTree = "<group>"; };
 		A2522550C6506807FFCC1438 /* Pods-sachithsilva-cobsccomp182p-018Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sachithsilva-cobsccomp182p-018Tests.debug.xcconfig"; path = "Target Support Files/Pods-sachithsilva-cobsccomp182p-018Tests/Pods-sachithsilva-cobsccomp182p-018Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		CE1D2C5D23F09A3600374E1D /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		E65142E38CDD008D2929353F /* Pods-sachithsilva-cobsccomp182p-018.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sachithsilva-cobsccomp182p-018.debug.xcconfig"; path = "Target Support Files/Pods-sachithsilva-cobsccomp182p-018/Pods-sachithsilva-cobsccomp182p-018.debug.xcconfig"; sourceTree = "<group>"; };
 		F12976015865B910FB7D76AF /* Pods-sachithsilva-cobsccomp182p-018UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sachithsilva-cobsccomp182p-018UITests.release.xcconfig"; path = "Target Support Files/Pods-sachithsilva-cobsccomp182p-018UITests/Pods-sachithsilva-cobsccomp182p-018UITests.release.xcconfig"; sourceTree = "<group>"; };
 		F27EED7DCACFF45E694C2F0D /* Pods-sachithsilva-cobsccomp182p-018Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sachithsilva-cobsccomp182p-018Tests.release.xcconfig"; path = "Target Support Files/Pods-sachithsilva-cobsccomp182p-018Tests/Pods-sachithsilva-cobsccomp182p-018Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				84F7FA4B23EEDBB700A92637 /* AuthViewController.swift */,
 				84F7FA4D23EEF4DF00A92637 /* UserRegisterViewController.swift */,
 				84F7FA5323F0745A00A92637 /* RecentEventTableViewController.swift */,
+				CE1D2C5D23F09A3600374E1D /* CustomTableViewCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -475,6 +478,7 @@
 			files = (
 				84F7FA1223EEA92100A92637 /* AppDelegate.swift in Sources */,
 				84F7FA5423F0745A00A92637 /* RecentEventTableViewController.swift in Sources */,
+				CE1D2C5E23F09A3600374E1D /* CustomTableViewCell.swift in Sources */,
 				84F7FA4C23EEDBB700A92637 /* AuthViewController.swift in Sources */,
 				84F7FA4E23EEF4DF00A92637 /* UserRegisterViewController.swift in Sources */,
 				84F7FA4A23EEDB5D00A92637 /* RootViewController.swift in Sources */,

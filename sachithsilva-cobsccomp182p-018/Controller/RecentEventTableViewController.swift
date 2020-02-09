@@ -7,84 +7,114 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class RecentEventTableViewController: UITableViewController {
 
+    private let searchController = UISearchController(searchResultsController: nil)
+    private let apiFetcher = FirebaseRequestFetcher()
+    private var previousRun = Date()
+    private let minInterval = 0.05
+    private var eventsResults = [JSON]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        tableView.tableFooterView = UIView()
+        setupTableViewBackgroundView()
+        setupSearchBar()
     }
 
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return eventsResults.count
     }
-
-    /*
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath ) -> CGFloat {
+        return 340
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell",
+                                                 for: indexPath) as! CustomTableViewCell
+        
+//        cell.titleLabel.text = searchResults[indexPath.row]["title"].stringValue
+//        
+//        cell.descriptionLabel.text = searchResults[indexPath.row]["terms"]["description"][0].string
+//        
+//        if let url = searchResults[indexPath.row]["thumbnail"]["source"].string {
+//            apiFetcher.fetchImage(url: url, completionHandler: { image, _ in
+//                cell.wikiImageView?.image = image
+//            })
+//        }
+        
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let title = eventsResults[indexPath.row]["title"].stringValue
+        // naviagte or open up detail view
+        tableView.deselectRow(at: indexPath, animated: true)
     }
-    */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    private func setupSearchBar() {
+        searchController.searchBar.delegate = self as? UISearchBarDelegate
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.placeholder = "Search any Topic"
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    private func setupTableViewBackgroundView() {
+        let backgroundViewLabel = UILabel(frame: .zero)
+        backgroundViewLabel.textColor = .darkGray
+        backgroundViewLabel.numberOfLines = 0
+        backgroundViewLabel.text =
+        "Oops, \n No results to show! ..."
+        tableView.backgroundView = backgroundViewLabel
     }
-    */
 
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+}
+
+extension RecentEventTableViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        eventsResults.removeAll()
+        guard let textToSearch = searchBar.text, !textToSearch.isEmpty else {
+            return
+        }
+        
+        if Date().timeIntervalSince(previousRun) > minInterval {
+            previousRun = Date()
+            fetchResults(for: textToSearch)
+        }
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func fetchResults(for text: String) {
+        print("Text Searched: \(text)")
+        apiFetcher.search(searchText: text, completionHandler: {
+            [weak self] results, error in
+            if case .failure = error {
+                return
+            }
+            
+            guard let results = results, !results.isEmpty else {
+                return
+            }
+            
+            self?.eventsResults = results
+        })
     }
-    */
-
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        eventsResults.removeAll()
+    }
 }
