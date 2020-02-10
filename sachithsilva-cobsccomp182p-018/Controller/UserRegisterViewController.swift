@@ -15,25 +15,22 @@ class UserRegisterViewController: RootViewController {
 
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var contactNoTextField: UITextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     
     @IBAction func createAccButtonPress(_ sender: Any) {
-        createUser(email: emailTextField.text!, password: passwordTextField.text!)
-    }
-    func createUser(email: String, password: String, _ callback: ((Error?) -> ())? = nil){
-        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-            if let e = error{
-                callback?(e)
-                return
-            }
-            callback?(nil)
+        FirebaseManager.createUser(email:  emailTextField.text!, password: passwordTextField.text!, name: userNameTextField.text!, contactNo: contactNoTextField.text!){
+            (result:String) in
+             self.performSegue(withIdentifier: "login", sender: sender)
         }
-    }    /*
+    }
+   /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

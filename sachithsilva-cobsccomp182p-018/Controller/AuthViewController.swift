@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 class AuthViewController: RootViewController {
 
@@ -24,7 +23,7 @@ class AuthViewController: RootViewController {
             (success:Bool) in
             if(success) {
                 let alertController = UIAlertController(title: "Cant't find account", message:
-                    "It looks like \(email) doesnt match an existing account.if you dont have a NIBM Event account, you can create one now ", preferredStyle: .alert);
+                    "It looks like \(self.emailTextField.text!) doesnt match an existing account.if you dont have a NIBM Event account, you can create one now ", preferredStyle: .alert);
                 let createAccAction = UIAlertAction(title: "CREATE ACCOUNT", style: .default) {
                     UIAlertAction in
                     self.performSegue(withIdentifier: "userRegistration", sender: self)

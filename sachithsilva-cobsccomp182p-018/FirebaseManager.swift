@@ -29,21 +29,22 @@ class FirebaseManager: NSObject {
     }
     
     
-    func createUser(email: String, password: String, _ callback: ((Error?) -> ())? = nil){
-        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-            if let e = error{
-                callback?(e)
+    static func createUser(email: String, password: String, name:String, contactNo:String, completion: @escaping(_ result:String) -> Void){
+        Auth.auth().createUser(withEmail: email, password: password, completion:{ (user, error) in
+            if let error = error {
+                print(error.localizedDescription)
                 return
             }
-            callback?(nil)
-        }
+            AddUser(name: name, email: email, contactNo: contactNo)
+            completion("")
+        })
     }
-    
-    static func AddUser(username:String, email:String){
+    static func AddUser(name:String, email:String, contactNo:String){
         let uid = Auth.auth().currentUser?.uid
         let post = ["uid":uid!,
-                    "username":username,
+                    "name":name,
                     "email":email,
+                    "contactNo":contactNo,
                     "profileImageUrl":""]
         databaseRef.child("users").child(uid!).setValue(post)
     }
