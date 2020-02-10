@@ -27,7 +27,7 @@ class UserRegisterViewController: RootViewController {
     @IBAction func createAccButtonPress(_ sender: Any) {
         FirebaseManager.createUser(email:  emailTextField.text!, password: passwordTextField.text!, name: userNameTextField.text!, contactNo: contactNoTextField.text!){
             (result:String) in
-             self.performSegue(withIdentifier: "login", sender: sender)
+            print(result)
         }
     }
    /*

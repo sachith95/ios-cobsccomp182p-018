@@ -21,7 +21,7 @@ class AuthViewController: RootViewController {
     @IBAction func loginButtonPressed(_ sender: Any) {
         FirebaseManager.login(email: emailTextField.text!,password: passwordTextField.text!){
             (success:Bool) in
-            if(success) {
+            if(!success) {
                 let alertController = UIAlertController(title: "Cant't find account", message:
                     "It looks like \(self.emailTextField.text!) doesnt match an existing account.if you dont have a NIBM Event account, you can create one now ", preferredStyle: .alert);
                 let createAccAction = UIAlertAction(title: "CREATE ACCOUNT", style: .default) {

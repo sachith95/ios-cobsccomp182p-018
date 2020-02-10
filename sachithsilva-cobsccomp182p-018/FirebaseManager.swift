@@ -42,10 +42,16 @@ class FirebaseManager: NSObject {
     static func AddUser(name:String, email:String, contactNo:String){
         let uid = Auth.auth().currentUser?.uid
         let post = ["uid":uid!,
-                    "name":name,
+                    "userName":name,
                     "email":email,
                     "contactNo":contactNo,
                     "profileImageUrl":""]
-        databaseRef.child("users").child(uid!).setValue(post)
+        databaseRef.child("users").child(uid!).setValue(post){ error, ref in
+            if error != nil {
+                // error handle
+            } else {
+                // then upload your photo since the write was successful
+            }
+        }
     }
 }
