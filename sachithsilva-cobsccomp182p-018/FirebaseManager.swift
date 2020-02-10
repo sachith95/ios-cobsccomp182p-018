@@ -32,7 +32,7 @@ class FirebaseManager: NSObject {
     static func createUser(email: String, password: String, name:String, contactNo:String, completion: @escaping(_ result:String) -> Void){
         Auth.auth().createUser(withEmail: email, password: password, completion:{ (user, error) in
             if let error = error {
-                print(error.localizedDescription)
+                print("asdxd", error.localizedDescription)
                 return
             }
             AddUser(name: name, email: email, contactNo: contactNo)
@@ -48,7 +48,7 @@ class FirebaseManager: NSObject {
                     "profileImageUrl":""]
         databaseRef.child("users").child(uid!).setValue(post){ error, ref in
             if error != nil {
-                // error handle
+               print("asdrt", error)
             } else {
                 // then upload your photo since the write was successful
             }
