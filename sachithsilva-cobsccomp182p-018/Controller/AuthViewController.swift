@@ -20,20 +20,11 @@ class AuthViewController: RootViewController {
     }
     
     @IBAction func loginButtonPressed(_ sender: Any) {
-        login()
-    }
-    
-    @IBAction func createAccButtonPressed(_ sender: Any) {
-//         self.performSegue(withIdentifier: "userRegistration", sender: self)
-    }
-    
-    func login() {
-        Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) {
-            (result, error) in
-            if error != nil {
-                print("error: \(error!)")
+        FirebaseManager.login(email: emailTextField.text!,password: passwordTextField.text!){
+            (success:Bool) in
+            if(success) {
                 let alertController = UIAlertController(title: "Cant't find account", message:
-                    "It looks like \(self.emailTextField.text) doesnt match an existing account.if you dont have a NIBM Event account, you can create one now ", preferredStyle: .alert);
+                    "It looks like \(email) doesnt match an existing account.if you dont have a NIBM Event account, you can create one now ", preferredStyle: .alert);
                 let createAccAction = UIAlertAction(title: "CREATE ACCOUNT", style: .default) {
                     UIAlertAction in
                     self.performSegue(withIdentifier: "userRegistration", sender: self)
@@ -51,18 +42,13 @@ class AuthViewController: RootViewController {
                 // SVProgressHUD.dismiss()
             }
         }
-        
     }
     
-    func createUser(email: String, password: String, _ callback: ((Error?) -> ())? = nil){
-        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-            if let e = error{
-                callback?(e)
-                return
-            }
-            callback?(nil)
-        }
+    @IBAction func createAccButtonPressed(_ sender: Any) {
+//         self.performSegue(withIdentifier: "userRegistration", sender: self)
     }
+    
+   
 
     /*
     // MARK: - Navigation
