@@ -41,6 +41,20 @@ class FirebaseManager: NSObject {
     }
     static func AddUser(name:String, email:String, contactNo:String){
         let uid = Auth.auth().currentUser?.uid
+        let user = ["uid":uid!,
+                    "userName":name,
+                    "email":email,
+                    "contactNo":contactNo,
+                    "profileImageUrl":""]
+        databaseRef.child("users").child(uid!).setValue(user){ error, ref in
+            if error != nil {
+                print("asdrt", error as Any)
+            }
+        }
+    }
+    
+    static func UpdateUser(name:String, email:String, contactNo:String){
+        let uid = Auth.auth().currentUser?.uid
         let post = ["uid":uid!,
                     "userName":name,
                     "email":email,
@@ -48,10 +62,48 @@ class FirebaseManager: NSObject {
                     "profileImageUrl":""]
         databaseRef.child("users").child(uid!).setValue(post){ error, ref in
             if error != nil {
-               print("asdrt", error)
-            } else {
-                // then upload your photo since the write was successful
+                print("asdrt", error as Any)
             }
         }
+    }
+    
+    static func UploadProfilePhoto(profileImage:UIImage){
+        let profileImageRef = FIRStorage.storage().reference().child("profileImages").child("\(NSUUID().uuidString).jpg")
+        if let imageData = UIImageJPEGRepresentation(profileImage, 0.25){
+            profileImageRef.put(imageData, metadata:nil){
+                metadata, error in
+                if error != nil {
+                    print(error)
+                    return
+                } else {
+                    print(metadata)
+                    if let downloadUrl = metadata?.downloadURL()?.absoluteString{
+                        if (self.profileImageUrl == "") {
+                            self.profileImageUrl = downloadUrl
+                            
+                            FirebaseManager.databaseRef.child("users").child(self.uid).updateChildValues(["profileImageUrl": downloadUrl])
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    static func getCurrentUser(uid:String) -> User? {
+        databaseRef.child("users").observe(.childAdded, with: {
+            snapshot in
+            print(snapshot)
+            if let result = snapshot.value as? [String:AnyObject]{
+                let uid = result["uid"]! as! String
+                let username = result["username"]! as! String
+                let email = result["email"]! as! String
+                let profileImageUrl = result["profileImageUrl"]! as! String
+                
+                let u = User(uid: uid, username: username, email: email, profileImageUrl: profileImageUrl)
+                
+                return u
+            }
+            completion()
+        })
     }
 }
