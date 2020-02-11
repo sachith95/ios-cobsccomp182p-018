@@ -15,7 +15,6 @@
 		84F7FA1C23EEA92200A92637 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84F7FA1A23EEA92200A92637 /* LaunchScreen.storyboard */; };
 		84F7FA2723EEA92200A92637 /* sachithsilva_cobsccomp182p_018Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F7FA2623EEA92200A92637 /* sachithsilva_cobsccomp182p_018Tests.swift */; };
 		84F7FA3223EEA92200A92637 /* sachithsilva_cobsccomp182p_018UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F7FA3123EEA92200A92637 /* sachithsilva_cobsccomp182p_018UITests.swift */; };
-		84F7FA4423EEC0AF00A92637 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F7FA4323EEC0AF00A92637 /* User.swift */; };
 		84F7FA4823EEC8C000A92637 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84F7FA4723EEC8C000A92637 /* GoogleService-Info.plist */; };
 		84F7FA4A23EEDB5D00A92637 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F7FA4923EEDB5D00A92637 /* RootViewController.swift */; };
 		84F7FA4C23EEDBB700A92637 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F7FA4B23EEDBB700A92637 /* AuthViewController.swift */; };
@@ -65,7 +64,6 @@
 		84F7FA2D23EEA92200A92637 /* sachithsilva-cobsccomp182p-018UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "sachithsilva-cobsccomp182p-018UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84F7FA3123EEA92200A92637 /* sachithsilva_cobsccomp182p_018UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sachithsilva_cobsccomp182p_018UITests.swift; sourceTree = "<group>"; };
 		84F7FA3323EEA92200A92637 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84F7FA4323EEC0AF00A92637 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		84F7FA4723EEC8C000A92637 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84F7FA4923EEDB5D00A92637 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		84F7FA4B23EEDBB700A92637 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
@@ -161,7 +159,6 @@
 		84F7FA1023EEA92100A92637 /* sachithsilva-cobsccomp182p-018 */ = {
 			isa = PBXGroup;
 			children = (
-				84F7FA4223EEC04500A92637 /* LoginModel */,
 				84F7FA4123EEC01D00A92637 /* Controller */,
 				84F7FA4023EEC00900A92637 /* View */,
 				84F7FA3F23EEBFE900A92637 /* Model */,
@@ -221,14 +218,6 @@
 				84F7FA5B23F1D0F900A92637 /* UserProfileViewController.swift */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		84F7FA4223EEC04500A92637 /* LoginModel */ = {
-			isa = PBXGroup;
-			children = (
-				84F7FA4323EEC0AF00A92637 /* User.swift */,
-			);
-			path = LoginModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -498,7 +487,6 @@
 				84F7FA4E23EEF4DF00A92637 /* UserRegisterViewController.swift in Sources */,
 				84F7FA4A23EEDB5D00A92637 /* RootViewController.swift in Sources */,
 				84F7FA5623F0754C00A92637 /* FirebaseRequestFetcher.swift in Sources */,
-				84F7FA4423EEC0AF00A92637 /* User.swift in Sources */,
 				CEB78E2723F2630300CA7BFE /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

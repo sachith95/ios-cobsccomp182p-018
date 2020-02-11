@@ -9,6 +9,7 @@
 import Foundation
 import FirebaseDatabase
 import FirebaseAuth
+import FirebaseStorage
 
 class FirebaseManager: NSObject {
     
@@ -68,17 +69,17 @@ class FirebaseManager: NSObject {
     }
     
     static func UploadProfilePhoto(profileImage:UIImage){
-        let profileImageRef = FIRStorage.storage().reference().child("profileImages").child("\(NSUUID().uuidString).jpg")
-        if let imageData = UIImageJPEGRepresentation(profileImage, 0.25){
-            profileImageRef.put(imageData, metadata:nil){
+        let profileImageRef = Storage.storage().reference().child("profileImages").child("\(NSUUID().uuidString).jpg")
+        if let imageData = profileImage.jpegData(compressionQuality: 0.25){
+            profileImageRef.putData(imageData, metadata:nil){
                 metadata, error in
                 if error != nil {
                     print(error)
                     return
                 } else {
                     print(metadata)
-                    if let downloadUrl = metadata?.downloadURL()?.absoluteString{
-                        if (self.profileImageUrl == "") {
+                    if let downloadUrl = metadata?.downloadURL?.absoluteString{
+                        if (self.provideImageData == "") {
                             self.profileImageUrl = downloadUrl
                             
                             FirebaseManager.databaseRef.child("users").child(self.uid).updateChildValues(["profileImageUrl": downloadUrl])
@@ -99,11 +100,11 @@ class FirebaseManager: NSObject {
                 let email = result["email"]! as! String
                 let profileImageUrl = result["profileImageUrl"]! as! String
                 
-                let u = User(uid: uid, username: username, email: email, profileImageUrl: profileImageUrl)
+                //let u = User(uid: uid, username: username, email: email, profileImageUrl: profileImageUrl)
                 
-                return u
+                //return u
             }
-            completion()
+          //  completion()
         })
     }
 }

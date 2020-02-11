@@ -9,6 +9,7 @@ target 'sachithsilva-cobsccomp182p-018' do
   pod 'Firebase'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
+  pod 'Firebase/Storage'
   pod 'SwiftyJSON', '~> 4.0'
 
 
