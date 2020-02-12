@@ -19,13 +19,16 @@ class User: NSObject {
     var firstName:String
     var lastName:String
     
-//    init(uid:String, username:String, email:String, contactNo:String, profileImageUrl:String){
-//        self.uid = uid
-//        self.username = username
-//        self.email = email
-//        self.contactNo = contactNo
-//        self.profileImageUrl = profileImageUrl
-//    }
+    init(uid:String, username:String, email:String, contactNo:String, about:String, firstName:String, lastName:String, profileImageUrl:String){
+        self.uid = uid
+        self.username = username
+        self.email = email
+        self.contactNo = contactNo
+        self.profileImageUrl = profileImageUrl
+        self.about = about
+        self.firstName = firstName
+        self.lastName = lastName
+    }
     
     func getProfileImage() -> UIImage {
         if let url = NSURL(string: profileImageUrl){

@@ -14,7 +14,7 @@ import FirebaseStorage
 class FirebaseManager: NSObject {
     
     static let databaseRef = Database.database().reference()
-    static var currentUserId:String = ""
+    static var currentUserId:String = Auth.auth().currentUser!.uid
     static var currentUser: FirebaseAuth.User? = nil
     
    static func login(email: String,password:String,completion: @escaping (_ success:Bool) -> Void) {
@@ -41,13 +41,12 @@ class FirebaseManager: NSObject {
         })
     }
     static func AddUser(name:String, email:String, contactNo:String){
-        let uid = Auth.auth().currentUser?.uid
-        let user = ["uid":uid!,
+        let user = ["uid":currentUserId,
                     "userName":name,
                     "email":email,
                     "contactNo":contactNo,
                     "profileImageUrl":""]
-        databaseRef.child("users").child(uid!).setValue(user){ error, ref in
+        databaseRef.child("users").child(currentUserId).setValue(user){ error, ref in
             if error != nil {
                 print("asdrt", error as Any)
             }
@@ -55,13 +54,12 @@ class FirebaseManager: NSObject {
     }
     
     static func UpdateUser(name:String, email:String, contactNo:String){
-        let uid = Auth.auth().currentUser?.uid
-        let post = ["uid":uid!,
+        let post = ["uid":currentUserId,
                     "userName":name,
                     "email":email,
                     "contactNo":contactNo,
                     "profileImageUrl":""]
-        databaseRef.child("users").child(uid!).setValue(post){ error, ref in
+        databaseRef.child("users").child(currentUserId).setValue(post){ error, ref in
             if error != nil {
                 print("asdrt", error as Any)
             }
@@ -74,23 +72,24 @@ class FirebaseManager: NSObject {
             profileImageRef.putData(imageData, metadata:nil){
                 metadata, error in
                 if error != nil {
-                    print(error)
+                    print(error as Any)
                     return
                 } else {
-                    print(metadata)
-                    if let downloadUrl = metadata?.downloadURL?.absoluteString{
-                        if (self.provideImageData == "") {
-                            self.profileImageUrl = downloadUrl
-                            
-                            FirebaseManager.databaseRef.child("users").child(self.uid).updateChildValues(["profileImageUrl": downloadUrl])
+                    print(metadata as Any)
+                    profileImageRef.downloadURL(completion: { (URL, Error) in
+                        guard let downloadUrl = URL else {
+                            print(Error as Any)
+                            return
                         }
-                    }
+                    FirebaseManager.databaseRef.child("users").child(currentUserId).updateChildValues(["profileImageUrl": downloadUrl])
+                    })
+                    
                 }
             }
         }
     }
     
-    static func getCurrentUser(uid:String) -> User? {
+    static func getCurrentUser(uid:String , completion: @escaping (User) -> Void) {
         databaseRef.child("users").observe(.childAdded, with: {
             snapshot in
             print(snapshot)
@@ -100,11 +99,9 @@ class FirebaseManager: NSObject {
                 let email = result["email"]! as! String
                 let profileImageUrl = result["profileImageUrl"]! as! String
                 
-                //let u = User(uid: uid, username: username, email: email, profileImageUrl: profileImageUrl)
-                
-                //return u
+                let u = User(uid: uid, username: username, email: email, contactNo: <#String#>, about: <#String#>, firstName: <#String#>, lastName: <#String#>, profileImageUrl: profileImageUrl)
+                completion(u)
             }
-          //  completion()
         })
     }
 }
