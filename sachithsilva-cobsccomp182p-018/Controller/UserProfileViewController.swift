@@ -10,6 +10,15 @@ import UIKit
 
 class UserProfileViewController: RootViewController {
 
+    @IBOutlet weak var userNameTextField: UITextField!
+    @IBOutlet weak var fNameTextField: UITextField!
+    @IBOutlet weak var lNameTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var contactNoTextField: UITextField!
+    @IBOutlet weak var aboutTextField: UITextView!
+    @IBOutlet weak var profileImageView: UIImageView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,6 +26,13 @@ class UserProfileViewController: RootViewController {
     }
     
 
+    @IBAction func saveButtonPress(_ sender: Any) {
+    }
+    
+    @IBAction func getPhotoButtonPress(_ sender: Any) {
+    }
+    @IBAction func uploadButtonPress(_ sender: Any) {
+    }
     /*
     // MARK: - Navigation
 
