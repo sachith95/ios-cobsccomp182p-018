@@ -89,7 +89,7 @@ class FirebaseManager: NSObject {
         }
     }
     
-    static func getCurrentUser(uid:String , completion: @escaping (User) -> Void) {
+    static func getCurrentUser(completion: @escaping (User) -> Void) {
         databaseRef.child("users").observe(.childAdded, with: {
             snapshot in
             print(snapshot)
@@ -104,4 +104,25 @@ class FirebaseManager: NSObject {
             }
         })
     }
+    
+    static func addEvent(eventId:String, startDate:String, endDate:String, title:String, organizer:String, about:String, longitude:String, latitude:String, venu:String, eventType:String, entrance:String, goingCount:Int){
+        let e = Event(userId: currentUserId, eventId: eventId, startDate: startDate, endDate: endDate, title: title, organizer: organizer, about: about, longitude: longitude, latitude: latitude, venu: venu, eventType: eventType, entrance: entrance, goingCount: goingCount)
+        let event = [
+            "uid":currentUserId,
+            "eventId" : e.eventId,
+            "startDate" : e.startDate,
+            "endDate" : e.endDate,
+            "title" : e.title,
+            "organizer" : e.organizer,
+            "about" : e.about,
+            "longitude" : e.longitude,
+            "latitude" : e.latitude,
+            "venu" : e.venu,
+            "eventType" : e.eventType,
+            "entrance" : e.entrance,
+            "goingCount" : e.goingCount,
+            ] as [String : Any]
+            databaseRef.child("Events").childByAutoId().setValue(event)
+    }
+    
 }

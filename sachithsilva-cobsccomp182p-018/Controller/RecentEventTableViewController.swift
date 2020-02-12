@@ -12,7 +12,7 @@ import SwiftyJSON
 class RecentEventTableViewController: UITableViewController {
 
     private let searchController = UISearchController(searchResultsController: nil)
-    private let apiFetcher = FirebaseRequestFetcher()
+    private let apiFetcher = FirebaseManager()
     private var previousRun = Date()
     private let minInterval = 0.05
     private var eventsResults = [JSON]() {
@@ -100,18 +100,18 @@ extension RecentEventTableViewController: UISearchBarDelegate {
     
     func fetchResults(for text: String) {
         print("Text Searched: \(text)")
-        apiFetcher.search(searchText: text, completionHandler: {
-            [weak self] results, error in
-            if case .failure = error {
-                return
-            }
-            
-            guard let results = results, !results.isEmpty else {
-                return
-            }
-            
-            self?.eventsResults = results
-        })
+//        apiFetcher.search(searchText: text, completionHandler: {
+//            [weak self] results, error in
+//            if case .failure = error {
+//                return
+//            }
+//            
+//            guard let results = results, !results.isEmpty else {
+//                return
+//            }
+//            
+//            self?.eventsResults = results
+//        })
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

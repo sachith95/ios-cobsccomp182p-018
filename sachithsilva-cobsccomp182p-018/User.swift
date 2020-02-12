@@ -10,14 +10,16 @@ import Foundation
 import UIKit
 
 class User: NSObject {
-    var username:String
-    var email:String
-    var contactNo:String
-    var uid:String
-    var profileImageUrl:String
-    var about:String
-    var firstName:String
-    var lastName:String
+    var username:String = ""
+    var email:String = ""
+    var contactNo:String = ""
+    var uid:String = ""
+    var profileImageUrl:String = ""
+    var about:String = ""
+    var firstName:String = ""
+    var lastName:String = ""
+    var myEvents:[String] = []
+    var goingEvents:[String] = []
     
     init(uid:String, username:String, email:String, contactNo:String, about:String, firstName:String, lastName:String, profileImageUrl:String){
         self.uid = uid
