@@ -7,9 +7,9 @@
 //
 
 import Foundation
+import FirebaseStorage
 import FirebaseDatabase
 import FirebaseAuth
-import FirebaseStorage
 
 class FirebaseManager: NSObject {
     
@@ -99,7 +99,7 @@ class FirebaseManager: NSObject {
                 let email = result["email"]! as! String
                 let profileImageUrl = result["profileImageUrl"]! as! String
                 
-                let u = User(uid: uid, username: username, email: email, contactNo: <#String#>, about: <#String#>, firstName: <#String#>, lastName: <#String#>, profileImageUrl: profileImageUrl)
+                let u = User(uid: uid, username: username, email: email, contactNo:"t", about: "t", firstName: "", lastName: "", profileImageUrl: profileImageUrl)
                 completion(u)
             }
         })
