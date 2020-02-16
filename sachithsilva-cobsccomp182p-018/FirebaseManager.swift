@@ -42,9 +42,9 @@ class FirebaseManager: NSObject {
     }
     static func AddUser(name:String, email:String, contactNo:String){
         let user = ["uid":currentUserId,
-                    "userName":name,
-                    "email":email,
-                    "contactNo":contactNo,
+                    "userName": name,
+                    "email": email,
+                    "contactNo": contactNo,
                     "profileImageUrl":""]
         databaseRef.child("users").child(currentUserId).setValue(user){ error, ref in
             if error != nil {
@@ -53,13 +53,16 @@ class FirebaseManager: NSObject {
         }
     }
     
-    static func UpdateUser(name:String, email:String, contactNo:String){
-        let post = ["uid":currentUserId,
-                    "userName":name,
-                    "email":email,
-                    "contactNo":contactNo,
+    static func UpdateUser(name:String, email:String, contactNo:String, about: String, firstName:String, lastName: String){
+        let user = ["uid":currentUserId,
+                    "userName": name,
+                    "email": email,
+                    "contactNo": contactNo,
+                    "firstName": firstName,
+                    "lastName": lastName,
+                    "about": about,
                     "profileImageUrl":""]
-        databaseRef.child("users").child(currentUserId).setValue(post){ error, ref in
+        databaseRef.child("users").child(currentUserId).setValue(user){ error, ref in
             if error != nil {
                 print("asdrt", error as Any)
             }
@@ -89,17 +92,21 @@ class FirebaseManager: NSObject {
         }
     }
     
-    static func getCurrentUser(completion: @escaping (User) -> Void) {
+    static func getCurrentUser(completion: @escaping (User) -> ()) {
         databaseRef.child("users").observe(.childAdded, with: {
             snapshot in
             print(snapshot)
             if let result = snapshot.value as? [String:AnyObject]{
                 let uid = result["uid"]! as! String
-                let username = result["username"]! as! String
+                let username = result["userName"]! as! String
                 let email = result["email"]! as! String
+                let firstName = result["firstName"] as? String ?? ""
+                let lastName = result["lastName"] as? String ?? ""
+                let contactNo = result["contactNo"]! as! String
+                let about = result["about"]as? String ?? ""
                 let profileImageUrl = result["profileImageUrl"]! as! String
                 
-                let u = User(uid: uid, username: username, email: email, contactNo:"t", about: "t", firstName: "", lastName: "", profileImageUrl: profileImageUrl)
+                let u = User(uid: uid, username: username, email: email, contactNo: contactNo, about: about, firstName:firstName, lastName: lastName, profileImageUrl: profileImageUrl)
                 completion(u)
             }
         })

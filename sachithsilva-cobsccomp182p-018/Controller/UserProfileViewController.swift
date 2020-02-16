@@ -2,7 +2,7 @@
 //  UserProfileViewController.swift
 //  sachithsilva-cobsccomp182p-018
 //
-//  Created by Janith Ganewatta on 2/10/20.
+//  Created by Sachith Silva on 2/10/20.
 //  Copyright © 2020 NIBM. All rights reserved.
 //
 
@@ -19,15 +19,19 @@ class UserProfileViewController: RootViewController {
     @IBOutlet weak var profileImageView: UIImageView!
     
     var imagePicker = UIImagePickerController()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        FirebaseManager.getCurrentUser(){ (user) in
+            self.fillUser(userDetails: user)
+        }
     }
-    
+
 
     @IBAction func saveButtonPress(_ sender: Any) {
+        FirebaseManager.UpdateUser(name: userNameTextField.text ?? "", email: emailTextField.text ?? "", contactNo: contactNoTextField.text ?? "", about: aboutTextField.text ?? "", firstName: fNameTextField.text ?? "", lastName: lNameTextField.text ?? "")
+        self.uploadImage(image: (profileImageView.image ?? nil)! )
     }
     
     @IBAction func uploadButtonPress(_ sender: Any) {
@@ -62,11 +66,33 @@ class UserProfileViewController: RootViewController {
         }
     }
     
+    
+    func uploadImage(image :UIImage){
+        FirebaseManager.UploadProfilePhoto(profileImage: image)
+    }
+    
+}
+extension UserProfileViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate{
+    
     func openGallary()
     {
         imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
         imagePicker.allowsEditing = true
         self.present(imagePicker, animated: true, completion: nil)
+    }
+    func fillUser(userDetails:User) {
+        userNameTextField.text = userDetails.username
+        emailTextField.text = userDetails.email
+        fNameTextField.text = userDetails.firstName
+        lNameTextField.text = userDetails.lastName
+        contactNoTextField.text = userDetails.contactNo
+        aboutTextField.text = userDetails.about
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        profileImageView.image = image
+        picker.dismiss(animated: true, completion: nil)
     }
 
 }
