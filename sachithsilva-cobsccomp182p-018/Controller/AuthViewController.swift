@@ -42,10 +42,7 @@ class AuthViewController: RootViewController {
             }
         }
     }
-    
-    @IBAction func createAccButtonPressed(_ sender: Any) {
-//         self.performSegue(withIdentifier: "userRegistration", sender: self)
-    }
+
     
    
 
