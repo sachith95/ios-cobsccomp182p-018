@@ -36,7 +36,9 @@ class AuthViewController: RootViewController {
             } else {
                 print("Login Success.")
                 
-                self.performSegue(withIdentifier: "loginSuccessSegue", sender: self)
+                UserDefaults.standard.set(true, forKey: "status")
+                Switcher.updateRootVC()
+                // self.performSegue(withIdentifier: "loginSuccessSegue", sender: self)
                 
                 // SVProgressHUD.dismiss()
             }

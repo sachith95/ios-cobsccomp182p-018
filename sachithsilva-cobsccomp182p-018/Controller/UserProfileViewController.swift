@@ -26,9 +26,16 @@ class UserProfileViewController: RootViewController {
         FirebaseManager.getCurrentUser(){ (user) in
             self.fillUser(userDetails: user)
         }
+        
+        imagePicker.delegate = self
     }
 
-
+ 
+    @IBAction func signOutButtonPress(_ sender: Any) {
+        UserDefaults.standard.set(false, forKey: "status")
+        Switcher.updateRootVC()
+    }
+    
     @IBAction func saveButtonPress(_ sender: Any) {
         FirebaseManager.UpdateUser(name: userNameTextField.text ?? "", email: emailTextField.text ?? "", contactNo: contactNoTextField.text ?? "", about: aboutTextField.text ?? "", firstName: fNameTextField.text ?? "", lastName: lNameTextField.text ?? "")
         self.uploadImage(image: (profileImageView.image ?? nil)! )
@@ -71,9 +78,6 @@ class UserProfileViewController: RootViewController {
         FirebaseManager.UploadProfilePhoto(profileImage: image)
     }
     
-}
-extension UserProfileViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate{
-    
     func openGallary()
     {
         imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
@@ -87,12 +91,25 @@ extension UserProfileViewController: UINavigationControllerDelegate, UIImagePick
         lNameTextField.text = userDetails.lastName
         contactNoTextField.text = userDetails.contactNo
         aboutTextField.text = userDetails.about
+        profileImageView.image = userDetails.getProfileImage()
     }
+    
+    
+}
+
+
+extension UserProfileViewController:  UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-        profileImageView.image = image
+
+        if let editedImage = info[.editedImage] as? UIImage{
+            self.profileImageView.image = editedImage
+        }
+
         picker.dismiss(animated: true, completion: nil)
     }
-
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.isNavigationBarHidden = false
+        self.dismiss(animated: true, completion: nil)
+    }
 }

@@ -84,7 +84,7 @@ class FirebaseManager: NSObject {
                             print(Error as Any)
                             return
                         }
-                    FirebaseManager.databaseRef.child("users").child(currentUserId).updateChildValues(["profileImageUrl": downloadUrl])
+                    FirebaseManager.databaseRef.child("users").child(currentUserId).updateChildValues(["profileImageUrl": downloadUrl.absoluteString])
                     })
                     
                 }
