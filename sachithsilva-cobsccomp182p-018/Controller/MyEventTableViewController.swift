@@ -2,7 +2,7 @@
 //  MyEventTableViewController.swift
 //  sachithsilva-cobsccomp182p-018
 //
-//  Created by Janith Ganewatta on 2/16/20.
+//  Created by Sachith Silva on 2/16/20.
 //  Copyright © 2020 NIBM. All rights reserved.
 //
 
@@ -10,6 +10,9 @@ import UIKit
 
 class MyEventTableViewController: UITableViewController {
 
+    @IBAction func addEventButtonPress(_ sender: Any) {
+        FirebaseManager.addEvent(eventId: "123", startDate: "123", endDate: "123", title: "123", organizer: "123", about: "123", longitude: "123", latitude: "123", venu: "123", eventType: "123", entrance: "123", goingCount: 1)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 

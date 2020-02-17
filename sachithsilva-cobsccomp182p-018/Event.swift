@@ -2,14 +2,14 @@
 //  Event.swift
 //  sachithsilva-cobsccomp182p-018
 //
-//  Created by user164669 on 2/12/20.
+//  Created by Sachith Silva on 2/12/20.
 //  Copyright © 2020 NIBM. All rights reserved.
 //
 
 import Foundation
+import UIKit
 
-
-class Event {
+class Event: NSObject {
     var userId:String = ""
     var eventId:String = ""
     var startDate: String = ""
@@ -23,7 +23,9 @@ class Event {
     var eventType:String = "Public"
     var entrance: String = "Free"
     var goingCount: Int=0
-    init (userId:String, eventId:String, startDate:String, endDate:String, title:String, organizer:String, about:String, longitude:String, latitude:String, venu:String, eventType:String, entrance:String, goingCount: Int){
+    var eventImageUrl:String = ""
+    
+    init (userId:String, eventId:String, startDate:String, endDate:String, title:String, organizer:String, about:String, longitude:String, latitude:String, venu:String, eventType:String, entrance:String, goingCount: Int, eventImageUrl:String){
         self.userId = userId
         self.eventId = eventId
         self.startDate = startDate
@@ -37,5 +39,15 @@ class Event {
         self.eventType = eventType
         self.entrance = entrance
         self.goingCount = goingCount
+        self.eventImageUrl = eventImageUrl
+    }
+    
+    func getEventImage() -> UIImage {
+        if let url = NSURL(string: eventImageUrl){
+            if let data = NSData(contentsOf: url as URL){
+                return UIImage(data: data as Data)!
+            }
+        }
+        return UIImage()
     }
 }

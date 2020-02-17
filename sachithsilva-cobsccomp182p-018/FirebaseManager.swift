@@ -16,6 +16,7 @@ class FirebaseManager: NSObject {
     static let databaseRef = Database.database().reference()
     static var currentUserId:String = Auth.auth().currentUser!.uid
     static var currentUser: FirebaseAuth.User? = nil
+    static var events = [Event]()
     
    static func login(email: String,password:String,completion: @escaping (_ success:Bool) -> Void) {
         Auth.auth().signIn(withEmail: email, password:password , completion: { (user, error) in
@@ -60,8 +61,7 @@ class FirebaseManager: NSObject {
                     "contactNo": contactNo,
                     "firstName": firstName,
                     "lastName": lastName,
-                    "about": about,
-                    "profileImageUrl":""]
+                    "about": about]
         databaseRef.child("users").child(currentUserId).setValue(user){ error, ref in
             if error != nil {
                 print("asdrt", error as Any)
@@ -113,7 +113,7 @@ class FirebaseManager: NSObject {
     }
     
     static func addEvent(eventId:String, startDate:String, endDate:String, title:String, organizer:String, about:String, longitude:String, latitude:String, venu:String, eventType:String, entrance:String, goingCount:Int){
-        let e = Event(userId: currentUserId, eventId: eventId, startDate: startDate, endDate: endDate, title: title, organizer: organizer, about: about, longitude: longitude, latitude: latitude, venu: venu, eventType: eventType, entrance: entrance, goingCount: goingCount)
+        let e = Event(userId: currentUserId, eventId: eventId, startDate: startDate, endDate: endDate, title: title, organizer: organizer, about: about, longitude: longitude, latitude: latitude, venu: venu, eventType: eventType, entrance: entrance, goingCount: goingCount, eventImageUrl: "")
         let event = [
             "uid":currentUserId,
             "eventId" : e.eventId,
@@ -128,8 +128,38 @@ class FirebaseManager: NSObject {
             "eventType" : e.eventType,
             "entrance" : e.entrance,
             "goingCount" : e.goingCount,
+            "eventImageUrl" : ""
             ] as [String : Any]
             databaseRef.child("Events").childByAutoId().setValue(event)
+    }
+    
+    static func getUserEvents(completion: @escaping ([Event]) -> ()) {
+        events = []
+        databaseRef.child("Events").observe(.childAdded, with: {
+            snapshot in
+            print(snapshot)
+            if let result = snapshot.value as? [String:AnyObject]{
+                let userId = result["uid"]! as! String
+                let eventId = result["eventId"]! as! String
+                let startDate = result["startDate"]! as! String
+                let endDate = result["endDate"]! as! String
+                let title = result["title"]! as! String
+                let organizer = result["organizer"]! as! String
+                let about = result["about"]! as! String
+                let longitude = result["longitude"]! as! String
+                let latitude = result["latitude "]! as! String
+                let venu = result["venu"]! as! String
+                let eventType = result["eventType"]! as! String
+                let entrance = result["entrance"]! as! String
+                let goingCount = result["goingCount"]! as! Int
+                let eventImageUrl = result["eventImageUrl"]! as! String
+                
+                let e = Event(userId: userId, eventId: eventId, startDate: startDate, endDate: endDate, title: title, organizer: organizer, about: about, longitude: longitude, latitude: latitude, venu: venu, eventType: eventType, entrance: entrance, goingCount: goingCount, eventImageUrl: eventImageUrl)
+                
+                FirebaseManager.events.append(e)
+            }
+            completion(FirebaseManager.events)
+        })
     }
     
 }
