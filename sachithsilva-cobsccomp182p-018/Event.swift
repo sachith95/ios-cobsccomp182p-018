@@ -22,10 +22,10 @@ class Event: NSObject {
     var venu:String = ""
     var eventType:String = "Public"
     var entrance: String = "Free"
-    var goingCount: Int=0
+    var goingCount: String = "0"
     var eventImageUrl:String = ""
     
-    init (userId:String, eventId:String, startDate:String, endDate:String, title:String, organizer:String, about:String, longitude:String, latitude:String, venu:String, eventType:String, entrance:String, goingCount: Int, eventImageUrl:String){
+    init (userId:String, eventId:String, startDate:String, endDate:String, title:String, organizer:String, about:String, longitude:String, latitude:String, venu:String, eventType:String, entrance:String, goingCount: String, eventImageUrl:String){
         self.userId = userId
         self.eventId = eventId
         self.startDate = startDate

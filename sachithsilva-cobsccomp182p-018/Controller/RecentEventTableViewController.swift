@@ -12,7 +12,6 @@ import SwiftyJSON
 class RecentEventTableViewController: UITableViewController {
 
     private let searchController = UISearchController(searchResultsController: nil)
-    private let apiFetcher = FirebaseManager()
     private var previousRun = Date()
     private let minInterval = 0.05
     private var eventsResults = [JSON]() {
@@ -23,6 +22,13 @@ class RecentEventTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        FirebaseManager.getUserEvents() {
+            (event) in
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
         tableView.tableFooterView = UIView()
         setupTableViewBackgroundView()
         setupSearchBar()
@@ -105,11 +111,11 @@ extension RecentEventTableViewController: UISearchBarDelegate {
 //            if case .failure = error {
 //                return
 //            }
-//            
+//
 //            guard let results = results, !results.isEmpty else {
 //                return
 //            }
-//            
+//
 //            self?.eventsResults = results
 //        })
     }

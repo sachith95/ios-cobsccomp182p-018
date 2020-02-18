@@ -9,9 +9,9 @@
 import UIKit
 
 class EventDetailViewController: UIViewController {
-
+    
+    var event:Event?
     @IBOutlet weak var eventImageView: UIImageView!
-
     @IBOutlet weak var organizerLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var titlelabel: UILabel!
@@ -20,14 +20,14 @@ class EventDetailViewController: UIViewController {
     @IBOutlet weak var eventTypeLabel: UILabel!
     @IBOutlet weak var entranceLabel: UILabel!
     @IBOutlet weak var aboutTextField: UITextView!
-    
     @IBOutlet weak var latitudeLabel: UILabel!
     @IBOutlet weak var longertitudeLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        if(event != nil){
+        self.fillEventDetails()
+        }
     }
     
     @IBAction func moreOptButtonPressed(_ sender: Any) {
@@ -35,14 +35,23 @@ class EventDetailViewController: UIViewController {
     
     @IBAction func goingButtonPressed(_ sender: Any) {
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+ 
+    func fillEventDetails(){
+        organizerLabel.text = event?.organizer
+        dateLabel.text = event?.startDate
+        titlelabel.text = event?.title
+        noOfGoingLabel.text = event?.goingCount
+        venuLabel.text = event?.venu
+        eventTypeLabel.text = event?.eventType
+        entranceLabel.text = event?.entrance
+        aboutTextField.text = event?.about
+        latitudeLabel.text = event?.latitude
+        longertitudeLabel.text = event?.longitude
+        if(event.eventImageUrl != ""){
+            eventImageView.image = event.getEventImage()
+        } else {
+            eventImageView.image = UIImage(named: "default")
+        }
     }
-    */
 
 }

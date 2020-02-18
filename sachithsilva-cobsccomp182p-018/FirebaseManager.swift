@@ -112,7 +112,7 @@ class FirebaseManager: NSObject {
         })
     }
     
-    static func addEvent(eventId:String, startDate:String, endDate:String, title:String, organizer:String, about:String, longitude:String, latitude:String, venu:String, eventType:String, entrance:String, goingCount:Int){
+    static func addEvent(eventId:String, startDate:String, endDate:String, title:String, organizer:String, about:String, longitude:String, latitude:String, venu:String, eventType:String, entrance:String, goingCount:String){
         let e = Event(userId: currentUserId, eventId: eventId, startDate: startDate, endDate: endDate, title: title, organizer: organizer, about: about, longitude: longitude, latitude: latitude, venu: venu, eventType: eventType, entrance: entrance, goingCount: goingCount, eventImageUrl: "")
         let event = [
             "uid":currentUserId,
@@ -147,11 +147,11 @@ class FirebaseManager: NSObject {
                 let organizer = result["organizer"]! as! String
                 let about = result["about"]! as! String
                 let longitude = result["longitude"]! as! String
-                let latitude = result["latitude "]! as! String
+                let latitude = result["latitude"]! as! String
                 let venu = result["venu"]! as! String
                 let eventType = result["eventType"]! as! String
                 let entrance = result["entrance"]! as! String
-                let goingCount = result["goingCount"]! as! Int
+                let goingCount = result["goingCount"]! as! String
                 let eventImageUrl = result["eventImageUrl"]! as! String
                 
                 let e = Event(userId: userId, eventId: eventId, startDate: startDate, endDate: endDate, title: title, organizer: organizer, about: about, longitude: longitude, latitude: latitude, venu: venu, eventType: eventType, entrance: entrance, goingCount: goingCount, eventImageUrl: eventImageUrl)
@@ -160,6 +160,10 @@ class FirebaseManager: NSObject {
             }
             completion(FirebaseManager.events)
         })
+    }
+    
+    static func updateGoingCount(){
+        // update going count
     }
     
 }
