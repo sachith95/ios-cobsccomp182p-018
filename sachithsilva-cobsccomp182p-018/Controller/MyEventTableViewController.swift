@@ -30,13 +30,10 @@ class MyEventTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
-    @IBAction func xxx(_ sender: Any) {
+    @IBAction func addEvent(_ sender: Any) {
          performSegue(withIdentifier: "addEvent", sender: nil)
     }
     
-    @IBAction func addEventButtonPress(_ sender: Any) {
-        performSegue(withIdentifier: "addEvent", sender: nil)
-    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
