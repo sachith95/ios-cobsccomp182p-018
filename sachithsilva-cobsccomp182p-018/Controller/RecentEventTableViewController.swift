@@ -14,17 +14,18 @@ class RecentEventTableViewController: UITableViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     private var previousRun = Date()
     private let minInterval = 0.05
-    private var eventsResults = [JSON]() {
+    private var eventsResults = [Event]() {
         didSet {
             tableView.reloadData()
         }
     }
-    
+     var selectedEvent:Event?
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        FirebaseManager.getUserEvents() {
+        FirebaseManager.getAllEvents(){
             (event) in
+            self.eventsResults = event
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -34,41 +35,38 @@ class RecentEventTableViewController: UITableViewController {
         setupSearchBar()
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath ) -> CGFloat {
+        // #warning Incomplete implementation, return the number of rows
+        return 265
+    }
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return eventsResults.count
+        return self.eventsResults.count
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath ) -> CGFloat {
-        return 340
-    }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell",
-                                                 for: indexPath) as! CustomTableViewCell
-        
-//        cell.titleLabel.text = searchResults[indexPath.row]["title"].stringValue
-//        
-//        cell.descriptionLabel.text = searchResults[indexPath.row]["terms"]["description"][0].string
-//        
-//        if let url = searchResults[indexPath.row]["thumbnail"]["source"].string {
-//            apiFetcher.fetchImage(url: url, completionHandler: { image, _ in
-//                cell.wikiImageView?.image = image
-//            })
-//        }
+                                                 for: indexPath) as! AllEventTableViewCell
+        let u = FirebaseManager.events[indexPath.row]
+        cell.titleLabel.text = u.title
+        cell.dateLabel.text = u.startDate
+        cell.organizerLabel.text = u.userId
+        if(u.eventImageUrl != ""){
+            cell.eventImage.image = u.getEventImage()
+        } else {
+            cell.eventImage.image = UIImage(named: "default")
+        }
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let title = eventsResults[indexPath.row]["title"].stringValue
-        // naviagte or open up detail view
-        tableView.deselectRow(at: indexPath, animated: true)
+        selectedEvent = FirebaseManager.events[indexPath.row]
+        self.performSegue(withIdentifier: "eventDetailView", sender: self)
     }
 
     private func setupSearchBar() {
@@ -93,7 +91,7 @@ class RecentEventTableViewController: UITableViewController {
 extension RecentEventTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        eventsResults.removeAll()
+        self.eventsResults.removeAll()
         guard let textToSearch = searchBar.text, !textToSearch.isEmpty else {
             return
         }
@@ -106,18 +104,11 @@ extension RecentEventTableViewController: UISearchBarDelegate {
     
     func fetchResults(for text: String) {
         print("Text Searched: \(text)")
-//        apiFetcher.search(searchText: text, completionHandler: {
-//            [weak self] results, error in
-//            if case .failure = error {
-//                return
-//            }
-//
-//            guard let results = results, !results.isEmpty else {
-//                return
-//            }
-//
-//            self?.eventsResults = results
-//        })
+        FirebaseManager.search(searchText: text, completion: {
+            [weak self] results in
+
+            self?.eventsResults = results
+        })
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

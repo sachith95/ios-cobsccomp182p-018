@@ -13,9 +13,6 @@ class MyEventTableViewController: UITableViewController {
     var selectedEvent:Event?
 
 
-    @IBAction func addEventButtonPress(_ sender: UIBarButtonItem) {
-          self.performSegue(withIdentifier: "addEvent", sender: self)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

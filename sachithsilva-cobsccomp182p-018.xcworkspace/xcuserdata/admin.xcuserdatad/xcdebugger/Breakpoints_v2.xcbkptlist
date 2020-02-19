@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "sachithsilva-cobsccomp182p-018/FirebaseManager.swift"
-            timestampString = "603744235.99455"
+            timestampString = "603838829.0574"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
             landmarkName = "createUser(email:password:name:contactNo:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "sachithsilva-cobsccomp182p-018/FirebaseManager.swift"
-            timestampString = "603744235.994617"
+            timestampString = "603838829.057767"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "32"
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "sachithsilva-cobsccomp182p-018/FirebaseManager.swift"
-            timestampString = "603744235.994668"
+            timestampString = "603838829.058024"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "createUser(email:password:name:contactNo:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -57,13 +57,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "sachithsilva-cobsccomp182p-018/Controller/UserProfileViewController.swift"
-            timestampString = "603743440.5119261"
+            filePath = "sachithsilva-cobsccomp182p-018/Controller/AddEventViewController.swift"
+            timestampString = "603838829.058261"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
-            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "saveButtonPress(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -73,14 +73,122 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "sachithsilva-cobsccomp182p-018/Controller/AddEventViewController.swift"
-            timestampString = "603744235.994747"
+            filePath = "sachithsilva-cobsccomp182p-018/Controller/AuthViewController.swift"
+            timestampString = "603838829.0585541"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "saveButtonPress(_:)"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "sachithsilva-cobsccomp182p-018/Controller/AuthViewController.swift"
+            timestampString = "603838829.058609"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "AuthViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "sachithsilva_cobsccomp182p_018.AuthViewController.emailTextField.getter : Swift.Optional&lt;__C.UITextField&gt;"
+                  moduleName = "sachithsilva-cobsccomp182p-018"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/Desktop/sachith/sachithsilva-cobsccomp182p-018/sachithsilva-cobsccomp182p-018/Controller/AuthViewController.swift"
+                  timestampString = "603830958.6255881"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "86">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "sachithsilva_cobsccomp182p_018.AuthViewController.emailTextField.setter : Swift.Optional&lt;__C.UITextField&gt;"
+                  moduleName = "sachithsilva-cobsccomp182p-018"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/Desktop/sachith/sachithsilva-cobsccomp182p-018/sachithsilva-cobsccomp182p-018/Controller/AuthViewController.swift"
+                  timestampString = "603830958.627473"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "106">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "sachithsilva_cobsccomp182p_018.AuthViewController.emailTextField.modify : Swift.Optional&lt;__C.UITextField&gt;"
+                  moduleName = "sachithsilva-cobsccomp182p-018"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/Desktop/sachith/sachithsilva-cobsccomp182p-018/sachithsilva-cobsccomp182p-018/Controller/AuthViewController.swift"
+                  timestampString = "603830958.628842"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "69">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "sachithsilva_cobsccomp182p_018.AuthViewController.emailTextField.modify : Swift.Optional&lt;__C.UITextField&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "sachithsilva-cobsccomp182p-018"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/Desktop/sachith/sachithsilva-cobsccomp182p-018/sachithsilva-cobsccomp182p-018/Controller/AuthViewController.swift"
+                  timestampString = "603830958.630173"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "72">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "sachithsilva_cobsccomp182p_018.AuthViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; sachithsilva_cobsccomp182p_018.AuthViewController"
+                  moduleName = "sachithsilva-cobsccomp182p-018"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/Desktop/sachith/sachithsilva-cobsccomp182p-018/sachithsilva-cobsccomp182p-018/Controller/AuthViewController.swift"
+                  timestampString = "603830958.63194"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "199">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "sachithsilva_cobsccomp182p_018.AuthViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;sachithsilva_cobsccomp182p_018.AuthViewController&gt;"
+                  moduleName = "sachithsilva-cobsccomp182p-018"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/Desktop/sachith/sachithsilva-cobsccomp182p-018/sachithsilva-cobsccomp182p-018/Controller/AuthViewController.swift"
+                  timestampString = "603830958.633418"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "107">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

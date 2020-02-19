@@ -47,8 +47,8 @@ class EventDetailViewController: UIViewController {
         aboutTextField.text = event?.about
         latitudeLabel.text = event?.latitude
         longertitudeLabel.text = event?.longitude
-        if(event.eventImageUrl != ""){
-            eventImageView.image = event.getEventImage()
+        if(event?.eventImageUrl != ""){
+            eventImageView.image = event?.getEventImage()
         } else {
             eventImageView.image = UIImage(named: "default")
         }

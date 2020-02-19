@@ -30,6 +30,15 @@ class FirebaseManager: NSObject {
         })
     }
     
+    static func passwordReset(email: String,completion: @escaping (_ success:String) -> Void) {
+         Auth.auth().sendPasswordReset(withEmail: email, completion: { (error) in
+            if let error = error {
+                print(error.localizedDescription)
+                completion(error.localizedDescription)
+            } else {
+                completion("true") }
+        })
+    }
     
     static func createUser(email: String, password: String, name:String, contactNo:String, completion: @escaping(_ result:String) -> Void){
         Auth.auth().createUser(withEmail: email, password: password, completion:{ (user, error) in
@@ -135,7 +144,7 @@ class FirebaseManager: NSObject {
     
     static func getUserEvents(completion: @escaping ([Event]) -> ()) {
         events = []
-        databaseRef.child("Events").observe(.childAdded, with: {
+        databaseRef.child("Events").queryOrdered(byChild: "uid").queryEqual(toValue:currentUserId).observe(.childAdded, with: {
             snapshot in
             print(snapshot)
             if let result = snapshot.value as? [String:AnyObject]{
@@ -165,5 +174,62 @@ class FirebaseManager: NSObject {
     static func updateGoingCount(){
         // update going count
     }
+    static func getAllEvents(completion: @escaping ([Event]) -> ()) {
+        events = []
+        databaseRef.child("Events").observe(.childAdded, with: {
+            snapshot in
+            print(snapshot)
+            if let result = snapshot.value as? [String:AnyObject]{
+                let userId = result["uid"]! as! String
+                let eventId = result["eventId"]! as! String
+                let startDate = result["startDate"]! as! String
+                let endDate = result["endDate"]! as! String
+                let title = result["title"]! as! String
+                let organizer = result["organizer"]! as! String
+                let about = result["about"]! as! String
+                let longitude = result["longitude"]! as! String
+                let latitude = result["latitude"]! as! String
+                let venu = result["venu"]! as! String
+                let eventType = result["eventType"]! as! String
+                let entrance = result["entrance"]! as! String
+                let goingCount = result["goingCount"]! as! String
+                let eventImageUrl = result["eventImageUrl"]! as! String
+                
+                let e = Event(userId: userId, eventId: eventId, startDate: startDate, endDate: endDate, title: title, organizer: organizer, about: about, longitude: longitude, latitude: latitude, venu: venu, eventType: eventType, entrance: entrance, goingCount: goingCount, eventImageUrl: eventImageUrl)
+                
+                FirebaseManager.events.append(e)
+            }
+            completion(FirebaseManager.events)
+        })
+    }
     
+    static func search(searchText:String,completion: @escaping ([Event]) -> ()) {
+        events = []
+        databaseRef.child("Events").queryOrdered(byChild: "title").queryEqual(toValue: searchText).observe(.childAdded, with: {
+            snapshot in
+            print(snapshot)
+            if let result = snapshot.value as? [String:AnyObject]{
+                let userId = result["uid"]! as! String
+                let eventId = result["eventId"]! as! String
+                let startDate = result["startDate"]! as! String
+                let endDate = result["endDate"]! as! String
+                let title = result["title"]! as! String
+                let organizer = result["organizer"]! as! String
+                let about = result["about"]! as! String
+                let longitude = result["longitude"]! as! String
+                let latitude = result["latitude"]! as! String
+                let venu = result["venu"]! as! String
+                let eventType = result["eventType"]! as! String
+                let entrance = result["entrance"]! as! String
+                let goingCount = result["goingCount"]! as! String
+                let eventImageUrl = result["eventImageUrl"]! as! String
+                
+                let e = Event(userId: userId, eventId: eventId, startDate: startDate, endDate: endDate, title: title, organizer: organizer, about: about, longitude: longitude, latitude: latitude, venu: venu, eventType: eventType, entrance: entrance, goingCount: goingCount, eventImageUrl: eventImageUrl)
+                
+                FirebaseManager.events.append(e)
+            }
+            completion(FirebaseManager.events)
+        })
+    }
 }
+
