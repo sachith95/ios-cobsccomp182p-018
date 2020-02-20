@@ -63,8 +63,6 @@ class MyEventTableViewController: UITableViewController {
         } else {
             cell.eventImage.image = UIImage(named: "default")
         }
-        
-        
         return cell
     }
     
@@ -77,9 +75,6 @@ class MyEventTableViewController: UITableViewController {
         if segue.identifier == "eventDetailView",
             let destinationViewController = segue.destination as? EventDetailViewController {
             destinationViewController.event = selectedEvent
-        }
-        if segue.identifier == "addEvent" {
-            let secondViewController = segue.destination as! AddEventViewController
         }
     }
     

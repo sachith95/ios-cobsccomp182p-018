@@ -66,7 +66,7 @@ class RecentEventTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedEvent = FirebaseManager.events[indexPath.row]
-        self.performSegue(withIdentifier: "eventDetailView", sender: self)
+        self.performSegue(withIdentifier: "recentEventDetailView", sender: self)
     }
 
     private func setupSearchBar() {
@@ -84,6 +84,12 @@ class RecentEventTableViewController: UITableViewController {
         backgroundViewLabel.text =
         "Oops, \n No results to show! ..."
         tableView.backgroundView = backgroundViewLabel
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "recentEventDetailView",
+            let destinationViewController = segue.destination as? EventDetailViewController {
+            destinationViewController.event = selectedEvent
+        }
     }
 
 }

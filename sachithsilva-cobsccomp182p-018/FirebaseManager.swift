@@ -171,8 +171,25 @@ class FirebaseManager: NSObject {
         })
     }
     
-    static func updateGoingCount(){
-        // update going count
+    static func updateGoingCount(eventId:String){
+        databaseRef.child("Events").queryOrdered(byChild: "eventId").queryEqual(toValue:eventId).observe(.childAdded, with: {
+            snapshot in
+            print(snapshot.key)
+            let result = snapshot.value as? [String:AnyObject]
+            let goingCount = result?["goingCount"]! as! String
+            let updateCount = Int(goingCount)!+1
+            databaseRef.child("Events").child(snapshot.key).updateChildValues(["goingCount": String(updateCount)])
+        })
+    }
+    static func updateNotGoingCount(eventId:String){
+        databaseRef.child("Events").queryOrdered(byChild: "eventId").queryEqual(toValue:eventId).observe(.childAdded, with: {
+            snapshot in
+            print(snapshot.key)
+            let result = snapshot.value as? [String:AnyObject]
+            let goingCount = result?["goingCount"]! as! String
+            let updateCount = Int(goingCount)! - 1
+            databaseRef.child("Events").child(snapshot.key).updateChildValues(["goingCount": String(updateCount)])
+        })
     }
     static func getAllEvents(completion: @escaping ([Event]) -> ()) {
         events = []

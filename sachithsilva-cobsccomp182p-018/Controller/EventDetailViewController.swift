@@ -31,11 +31,24 @@ class EventDetailViewController: UIViewController {
     }
     
     @IBAction func moreOptButtonPressed(_ sender: Any) {
+        let moreOptionMenu = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
+        let notGoing = UIAlertAction(title: "Not Going", style: .default, handler: {
+            _ in self.notGoingAction()
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        moreOptionMenu.addAction(notGoing)
+        moreOptionMenu.addAction(cancelAction)
+        
+        self.present(moreOptionMenu, animated: true, completion: nil)
     }
     
     @IBAction func goingButtonPressed(_ sender: Any) {
+        FirebaseManager.updateGoingCount(eventId: event!.eventId)
     }
- 
+    func notGoingAction() {
+         FirebaseManager.updateNotGoingCount(eventId: event!.eventId)
+    }
     func fillEventDetails(){
         organizerLabel.text = event?.organizer
         dateLabel.text = event?.startDate
