@@ -13,9 +13,7 @@ class AddEventViewController: RootViewController {
     @IBOutlet weak var eventImageView: UIImageView!
     @IBOutlet weak var eventNameTextField: UITextField!
     @IBOutlet weak var endDateTextField: UITextField!
-    @IBOutlet weak var endTimeTextField: UITextField!
     @IBOutlet weak var startDateTextField: UITextField!
-    @IBOutlet weak var startTimeTextField: UITextField!
     @IBOutlet weak var venuTextField: UITextField!
     @IBOutlet weak var detailTextField: UITextField!
     @IBOutlet weak var hostTextField: UITextField!
@@ -28,8 +26,27 @@ class AddEventViewController: RootViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        imagePicker.delegate = self
+        startDateTextField.addInputViewDatePicker(target: self, selector: #selector(doneButtonPressed))
+        endDateTextField.addInputViewDatePicker(target: self, selector: #selector(endDateDoneButtonPressed))
+
+    }
+    @objc func doneButtonPressed() {
+        if let  datePicker = self.startDateTextField.inputView as? UIDatePicker {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            self.startDateTextField.text = dateFormatter.string(from: datePicker.date)
+        }
+        self.startDateTextField.resignFirstResponder()
     }
 
+    @objc func endDateDoneButtonPressed() {
+        if let  datePicker = self.endDateTextField.inputView as? UIDatePicker {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            self.endDateTextField.text = dateFormatter.string(from: datePicker.date)
+        }
+        self.endDateTextField.resignFirstResponder()
+    }
     @IBAction func uploadButtonPress(_ sender: Any) {
         let uploadImageOptionMenu = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
         let openCameraAction = UIAlertAction(title: "Open Camera", style: .default, handler: {
@@ -48,7 +65,7 @@ class AddEventViewController: RootViewController {
     @IBAction func openMapButtonPress(_ sender: Any) {
     }
     @IBAction func saveButtonPress(_ sender: Any) {
-        FirebaseManager.addEvent(eventId: "123", startDate: startDateTextField.text ?? "", endDate: endDateTextField.text ?? "", title: eventNameTextField.text ?? "", organizer: hostTextField.text ?? "", about: detailTextField.text ?? "", longitude: longTextField.text ?? "", latitude: lateTextField.text ?? "", venu: venuTextField.text ?? "", eventType: eventTypeTextField.text ?? "", entrance: entranceTextField.text ?? "", goingCount: "1")
+        FirebaseManager.addEvent(eventId: String(1000+arc4random_uniform(8999)), startDate: startDateTextField.text ?? "", endDate: endDateTextField.text ?? "", title: eventNameTextField.text ?? "", organizer: hostTextField.text ?? "", about: detailTextField.text ?? "", longitude: longTextField.text ?? "", latitude: lateTextField.text ?? "", venu: venuTextField.text ?? "", eventType: eventTypeTextField.text ?? "", entrance: entranceTextField.text ?? "", goingCount: "1")
           self.performSegue(withIdentifier: "myevent", sender: self)
     }
     
@@ -94,5 +111,28 @@ extension AddEventViewController:  UIImagePickerControllerDelegate, UINavigation
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.isNavigationBarHidden = false
         self.dismiss(animated: true, completion: nil)
+    }
+}
+extension UITextField {
+    
+    func addInputViewDatePicker(target: Any, selector: Selector) {
+        
+        let screenWidth = UIScreen.main.bounds.width
+        
+        let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 216))
+        datePicker.datePickerMode = .dateAndTime
+        self.inputView = datePicker
+        
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 44))
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let cancelBarButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPressed))
+        let doneBarButton = UIBarButtonItem(title: "Done", style: .plain, target: target, action: selector)
+        toolBar.setItems([cancelBarButton, flexibleSpace, doneBarButton], animated: false)
+        
+        self.inputAccessoryView = toolBar
+    }
+    
+    @objc func cancelPressed() {
+        self.resignFirstResponder()
     }
 }

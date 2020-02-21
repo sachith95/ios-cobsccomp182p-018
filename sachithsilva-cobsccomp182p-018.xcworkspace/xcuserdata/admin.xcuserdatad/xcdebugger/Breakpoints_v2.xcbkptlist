@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "sachithsilva-cobsccomp182p-018/Controller/AddEventViewController.swift"
-            timestampString = "603922540.611179"
+            timestampString = "604006450.613923"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "saveButtonPress(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -203,7 +203,23 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "35"
             endingLineNumber = "35"
-            landmarkName = "addEvent(_:)"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "sachithsilva-cobsccomp182p-018/Controller/AddEventViewController.swift"
+            timestampString = "604006450.614794"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "openCamera()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
