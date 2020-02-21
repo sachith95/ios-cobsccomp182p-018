@@ -32,4 +32,5 @@ class CustomTableViewCell: UITableViewCell {
 
     @IBAction func goingButtonPressed(_ sender: Any) {
     }
+    
 }

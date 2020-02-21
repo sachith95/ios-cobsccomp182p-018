@@ -35,6 +35,7 @@ class RecentEventTableViewController: UITableViewController {
         setupSearchBar()
     }
 
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath ) -> CGFloat {
         // #warning Incomplete implementation, return the number of rows
         return 265
@@ -49,6 +50,15 @@ class RecentEventTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+  //image append to label
+            let attachment = NSTextAttachment()
+            attachment.image = UIImage(named: "yourIcon.png")
+            let attachmentString = NSAttributedString(attachment: attachment)
+            let myString = NSMutableAttributedString(string: "y")
+            myString.append(attachmentString)
+              //  .attributedText = myString
+        //end
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell",
                                                  for: indexPath) as! AllEventTableViewCell
         let u = FirebaseManager.events[indexPath.row]
