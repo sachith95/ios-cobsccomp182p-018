@@ -18,7 +18,6 @@ class User: NSObject {
     var about:String = ""
     var firstName:String = ""
     var lastName:String = ""
-    var myEvents:[String] = []
     var goingEvents:[String] = []
     
     init(uid:String, username:String, email:String, contactNo:String, about:String, firstName:String, lastName:String, profileImageUrl:String){

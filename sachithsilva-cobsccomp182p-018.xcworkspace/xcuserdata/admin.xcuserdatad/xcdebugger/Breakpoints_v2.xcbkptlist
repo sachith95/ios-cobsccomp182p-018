@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "sachithsilva-cobsccomp182p-018/FirebaseManager.swift"
-            timestampString = "603922540.61101"
+            timestampString = "604183363.834704"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "47"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "sachithsilva-cobsccomp182p-018/FirebaseManager.swift"
-            timestampString = "603922540.611081"
+            timestampString = "604183363.834794"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "32"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "sachithsilva-cobsccomp182p-018/FirebaseManager.swift"
-            timestampString = "603922540.61113"
+            timestampString = "604183363.834862"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "51"
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "sachithsilva-cobsccomp182p-018/Controller/AddEventViewController.swift"
-            timestampString = "604006450.613923"
+            timestampString = "604183363.834931"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
             landmarkName = "saveButtonPress(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "sachithsilva-cobsccomp182p-018/Controller/AuthViewController.swift"
-            timestampString = "603840948.019007"
+            timestampString = "604183363.834991"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "17"
@@ -90,7 +90,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "sachithsilva-cobsccomp182p-018/Controller/AuthViewController.swift"
-            timestampString = "603840948.019065"
+            timestampString = "604183363.835034"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "13"
@@ -198,13 +198,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "sachithsilva-cobsccomp182p-018/Controller/MyEventTableViewController.swift"
-            timestampString = "603922540.611697"
+            timestampString = "604183363.835079"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "addEvent(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -214,13 +214,61 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "sachithsilva-cobsccomp182p-018/Controller/AddEventViewController.swift"
-            timestampString = "604006450.614794"
+            timestampString = "604183363.835122"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "83"
             endingLineNumber = "83"
             landmarkName = "openCamera()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "sachithsilva-cobsccomp182p-018/FirebaseManager.swift"
+            timestampString = "604183363.835168"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "231"
+            endingLineNumber = "231"
+            landmarkName = "updateGoingCount(eventId:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static sachithsilva_cobsccomp182p_018.FirebaseManager.getAllEvents(completion: (Swift.Array&lt;sachithsilva_cobsccomp182p_018.Event&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "sachithsilva-cobsccomp182p-018"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/Desktop/sachith/sachithsilva-cobsccomp182p-018/sachithsilva-cobsccomp182p-018/FirebaseManager.swift"
+                  timestampString = "604175018.380352"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "205"
+                  endingLineNumber = "205"
+                  offsetFromSymbolStart = "191">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.FIRDataSnapshot) -&gt; () in static sachithsilva_cobsccomp182p_018.FirebaseManager.getAllEvents(completion: (Swift.Array&lt;sachithsilva_cobsccomp182p_018.Event&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "sachithsilva-cobsccomp182p-018"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/admin/Desktop/sachith/sachithsilva-cobsccomp182p-018/sachithsilva-cobsccomp182p-018/FirebaseManager.swift"
+                  timestampString = "604175018.382021"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "207"
+                  endingLineNumber = "207"
+                  offsetFromSymbolStart = "562">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

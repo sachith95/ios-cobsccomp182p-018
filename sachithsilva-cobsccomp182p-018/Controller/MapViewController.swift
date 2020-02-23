@@ -11,12 +11,35 @@ import MapKit
 
 
 class MapViewController: UIViewController {
-   
+  let locationManager = CLLocationManager()
     @IBOutlet weak var mapView: MKMapView!
     let initialLocation = CLLocation(latitude: 6.9271, longitude: 79.8612)
    let regionRadius: CLLocationDistance = 100000
     override func viewDidLoad() {
         super.viewDidLoad()
+        if CLLocationManager.locationServicesEnabled() {
+            switch CLLocationManager.authorizationStatus() {
+            case .notDetermined, .restricted, .denied:
+                locationManager.requestWhenInUseAuthorization()
+                mapView.showsUserLocation = true
+            case .authorizedAlways, .authorizedWhenInUse:
+               mapView.showsUserLocation = true
+            }
+        } else {
+            let alertController = UIAlertController(title: "Location Permission Required", message: "Please enable location permissions in settings.", preferredStyle: UIAlertController.Style.alert)
+            
+            let okAction = UIAlertAction(title: "Settings", style: .default, handler: {(cAlertAction) in
+                //Redirect to Settings app
+                UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
+            })
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel)
+            alertController.addAction(cancelAction)
+            
+            alertController.addAction(okAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
         centerMapOnLocation(location: initialLocation)
     }
   
@@ -37,25 +60,4 @@ class MapViewController: UIViewController {
     }
     */
 
-}
-extension MKMapView {
-    
-    func moveCenterByOffSet(offSet: CGPoint, coordinate: CLLocationCoordinate2D) {
-        var point = self.convert(coordinate, toPointTo: self)
-        
-        point.x += offSet.x
-        point.y += offSet.y
-        
-        let center = self.convert(point, toCoordinateFrom: self)
-        self.setCenter(center, animated: true)
-    }
-    
-    func centerCoordinateByOffSet(offSet: CGPoint) -> CLLocationCoordinate2D {
-        var point = self.center
-        
-        point.x += offSet.x
-        point.y += offSet.y
-        
-        return self.convert(point, toCoordinateFrom: self)
-    }
 }

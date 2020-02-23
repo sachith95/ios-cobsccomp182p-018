@@ -16,7 +16,6 @@ class MyEventTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         FirebaseManager.getUserEvents() {
             (event) in
             DispatchQueue.main.async {

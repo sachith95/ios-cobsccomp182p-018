@@ -101,10 +101,31 @@ class FirebaseManager: NSObject {
         }
     }
     
+    static func UploadEventPhoto(profileImage:UIImage, eventID: String){
+        let eventImageRef = Storage.storage().reference().child("EventImages").child("\(NSUUID().uuidString).jpg")
+        if let imageData = profileImage.jpegData(compressionQuality: 0.25){
+            eventImageRef.putData(imageData, metadata:nil){
+                metadata, error in
+                if error != nil {
+                    print(error as Any)
+                    return
+                } else {
+                    print(metadata as Any)
+                    eventImageRef.downloadURL(completion: { (URL, Error) in
+                        guard let downloadUrl = URL else {
+                            print(Error as Any)
+                            return
+                        }
+                       databaseRef.child("Events").queryOrdered(byChild: "eventId").queryEqual(toValue: eventID).ref.updateChildValues(["eventImageUrl": downloadUrl.absoluteString])
+                    })
+                    
+                }
+            }
+        }
+    }
     static func getCurrentUser(completion: @escaping (User) -> ()) {
-        databaseRef.child("users").observe(.childAdded, with: {
+        databaseRef.child("users").child(currentUserId).observeSingleEvent(of: .value, with: {
             snapshot in
-            print(snapshot)
             if let result = snapshot.value as? [String:AnyObject]{
                 let uid = result["uid"]! as! String
                 let username = result["userName"]! as! String
@@ -148,7 +169,8 @@ class FirebaseManager: NSObject {
             snapshot in
             print(snapshot)
             if let result = snapshot.value as? [String:AnyObject]{
-                let userId = result["uid"]! as! String
+                print(result)
+                let userId = ""
                 let eventId = result["eventId"]! as! String
                 let startDate = result["startDate"]! as! String
                 let endDate = result["endDate"]! as! String
@@ -174,21 +196,33 @@ class FirebaseManager: NSObject {
     static func updateGoingCount(eventId:String){
         databaseRef.child("Events").queryOrdered(byChild: "eventId").queryEqual(toValue:eventId).observe(.childAdded, with: {
             snapshot in
-            print(snapshot.key)
             let result = snapshot.value as? [String:AnyObject]
             let goingCount = result?["goingCount"]! as! String
             let updateCount = Int(goingCount)!+1
             databaseRef.child("Events").child(snapshot.key).updateChildValues(["goingCount": String(updateCount)])
         })
+        databaseRef.child("users").child(currentUserId).observeSingleEvent(of: .value, with: {
+            snapshot in
+            let result = snapshot.value as? [String:AnyObject]
+            var goingEvent: [String] = result?["goingEvents"] as! [String]
+            goingEvent.append(eventId)
+            databaseRef.child("users").child(currentUserId).updateChildValues(["goingEvents": goingEvent ])
+        })
     }
     static func updateNotGoingCount(eventId:String){
         databaseRef.child("Events").queryOrdered(byChild: "eventId").queryEqual(toValue:eventId).observe(.childAdded, with: {
             snapshot in
-            print(snapshot.key)
             let result = snapshot.value as? [String:AnyObject]
             let goingCount = result?["goingCount"]! as! String
-            let updateCount = Int(goingCount)! - 1
+            let updateCount = Int(goingCount)!-1
             databaseRef.child("Events").child(snapshot.key).updateChildValues(["goingCount": String(updateCount)])
+        })
+        databaseRef.child("users").child(currentUserId).observeSingleEvent(of: .value, with: {
+            snapshot in
+            let result = snapshot.value as? [String:AnyObject]
+            var goingEvent: [String] = result?["goingEvents"] as! [String]
+            goingEvent.removeAll{$0 == eventId}
+            databaseRef.child("users").child(currentUserId).updateChildValues(["goingEvents": goingEvent ])
         })
     }
     static func getAllEvents(completion: @escaping ([Event]) -> ()) {
@@ -197,7 +231,7 @@ class FirebaseManager: NSObject {
             snapshot in
             print(snapshot)
             if let result = snapshot.value as? [String:AnyObject]{
-                let userId = result["uid"]! as! String
+                let userId = result["uid"] as! String
                 let eventId = result["eventId"]! as! String
                 let startDate = result["startDate"]! as! String
                 let endDate = result["endDate"]! as! String
@@ -246,6 +280,18 @@ class FirebaseManager: NSObject {
                 FirebaseManager.events.append(e)
             }
             completion(FirebaseManager.events)
+        })
+    }
+
+    static func checkGoingEvent(eventId:String,completion: @escaping (Bool) -> ()) {
+        databaseRef.child("users").child(currentUserId).observeSingleEvent(of: .value, with: {
+            snapshot in
+            let result = snapshot.value as? [String:AnyObject]
+            var goingEvent: [String] = result?["goingEvents"] as! [String]
+            if goingEvent.contains(eventId) {
+                completion(true)
+            }
+            completion(false)
         })
     }
 }

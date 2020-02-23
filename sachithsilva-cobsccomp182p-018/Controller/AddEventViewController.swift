@@ -22,18 +22,17 @@ class AddEventViewController: RootViewController {
     @IBOutlet weak var eventTypeTextField: UITextField!
     @IBOutlet weak var entranceTextField: UITextField!
     var imagePicker = UIImagePickerController()
-    
+    let eventID = String(1000+arc4random_uniform(8999))
     override func viewDidLoad() {
         super.viewDidLoad()
        imagePicker.delegate = self
         startDateTextField.addInputViewDatePicker(target: self, selector: #selector(doneButtonPressed))
         endDateTextField.addInputViewDatePicker(target: self, selector: #selector(endDateDoneButtonPressed))
-
     }
     @objc func doneButtonPressed() {
         if let  datePicker = self.startDateTextField.inputView as? UIDatePicker {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
             self.startDateTextField.text = dateFormatter.string(from: datePicker.date)
         }
         self.startDateTextField.resignFirstResponder()
@@ -42,7 +41,7 @@ class AddEventViewController: RootViewController {
     @objc func endDateDoneButtonPressed() {
         if let  datePicker = self.endDateTextField.inputView as? UIDatePicker {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
             self.endDateTextField.text = dateFormatter.string(from: datePicker.date)
         }
         self.endDateTextField.resignFirstResponder()
@@ -65,8 +64,9 @@ class AddEventViewController: RootViewController {
     @IBAction func openMapButtonPress(_ sender: Any) {
     }
     @IBAction func saveButtonPress(_ sender: Any) {
-        FirebaseManager.addEvent(eventId: String(1000+arc4random_uniform(8999)), startDate: startDateTextField.text ?? "", endDate: endDateTextField.text ?? "", title: eventNameTextField.text ?? "", organizer: hostTextField.text ?? "", about: detailTextField.text ?? "", longitude: longTextField.text ?? "", latitude: lateTextField.text ?? "", venu: venuTextField.text ?? "", eventType: eventTypeTextField.text ?? "", entrance: entranceTextField.text ?? "", goingCount: "1")
+        FirebaseManager.addEvent(eventId: self.eventID, startDate: startDateTextField.text ?? "", endDate: endDateTextField.text ?? "", title: eventNameTextField.text ?? "", organizer: hostTextField.text ?? "", about: detailTextField.text ?? "", longitude: longTextField.text ?? "", latitude: lateTextField.text ?? "", venu: venuTextField.text ?? "", eventType: eventTypeTextField.text ?? "", entrance: entranceTextField.text ?? "", goingCount: "1")
           self.performSegue(withIdentifier: "myevent", sender: self)
+        self.uploadImage(image: (eventImageView.image ?? nil)!)
     }
     
     func openCamera()
@@ -87,7 +87,7 @@ class AddEventViewController: RootViewController {
     
     
     func uploadImage(image :UIImage){
-        FirebaseManager.UploadProfilePhoto(profileImage: image)
+        FirebaseManager.UploadEventPhoto(profileImage: image, eventID: self.eventID)
     }
     
     func openGallary()

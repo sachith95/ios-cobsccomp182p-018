@@ -66,8 +66,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="createAccButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3Xe-TA-B5o"/>
-                                    <segue destination="HNU-Jv-oVx" kind="show" identifier="userRegistration" id="eJd-Lr-cXF"/>
+                                    <segue destination="HNU-Jv-oVx" kind="show" identifier="userRegistration" id="xEJ-0j-eMz"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="-------OR-------" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GR2-1n-KB7">
@@ -628,8 +627,9 @@
                         <outlet property="aboutTextField" destination="U9x-6u-EU0" id="GOd-p1-wOV"/>
                         <outlet property="dateLabel" destination="bVL-NQ-MLK" id="mHK-t5-DrF"/>
                         <outlet property="entranceLabel" destination="ODg-9J-bk8" id="CWh-d2-BUu"/>
-                        <outlet property="eventImageView" destination="spQ-gC-Lmd" id="Rxd-8Q-aau"/>
+                        <outlet property="eventImageView" destination="spQ-gC-Lmd" id="ld4-I3-HkE"/>
                         <outlet property="eventTypeLabel" destination="5Qs-XH-Nlk" id="1ON-WJ-BdG"/>
+                        <outlet property="goingButton" destination="bYC-YC-rsX" id="F2q-Hg-ne4"/>
                         <outlet property="latitudeLabel" destination="ZZE-yq-ZEF" id="HB8-cX-YfX"/>
                         <outlet property="longertitudeLabel" destination="bO9-Up-ItD" id="9B1-1M-75f"/>
                         <outlet property="noOfGoingLabel" destination="1PH-lA-PaJ" id="QBA-4d-JL1"/>
@@ -834,7 +834,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ruG-rq-66G">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

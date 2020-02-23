@@ -22,9 +22,16 @@ class EventDetailViewController: UIViewController {
     @IBOutlet weak var aboutTextField: UITextView!
     @IBOutlet weak var latitudeLabel: UILabel!
     @IBOutlet weak var longertitudeLabel: UILabel!
+    @IBOutlet weak var goingButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        FirebaseManager.checkGoingEvent(eventId: event!.eventId){
+            (bool) in
+            if(bool){
+                self.goingButton.isEnabled = false
+            }
+        }
         if(event != nil){
         self.fillEventDetails()
         }
@@ -51,7 +58,7 @@ class EventDetailViewController: UIViewController {
     }
     func fillEventDetails(){
         organizerLabel.text = event?.organizer
-        dateLabel.text = event?.startDate
+        dateLabel.text = "\(event?.startDate ?? "") - \(event?.endDate ?? "")"
         titlelabel.text = event?.title
         noOfGoingLabel.text = event?.goingCount
         venuLabel.text = event?.venu
