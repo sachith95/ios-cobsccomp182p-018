@@ -63,14 +63,15 @@ class FirebaseManager: NSObject {
         }
     }
     
-    static func UpdateUser(name:String, email:String, contactNo:String, about: String, firstName:String, lastName: String){
+    static func UpdateUser(name:String, email:String, contactNo:String, about: String, firstName:String, lastName: String, fbURL:String){
         let user = ["uid":currentUserId,
                     "userName": name,
                     "email": email,
                     "contactNo": contactNo,
                     "firstName": firstName,
                     "lastName": lastName,
-                    "about": about]
+                    "about": about,
+                    "fbURL":fbURL]
         databaseRef.child("users").child(currentUserId).setValue(user){ error, ref in
             if error != nil {
                 print("asdrt", error as Any)
@@ -135,8 +136,29 @@ class FirebaseManager: NSObject {
                 let contactNo = result["contactNo"]! as! String
                 let about = result["about"]as? String ?? ""
                 let profileImageUrl = result["profileImageUrl"]! as! String
-                
-                let u = User(uid: uid, username: username, email: email, contactNo: contactNo, about: about, firstName:firstName, lastName: lastName, profileImageUrl: profileImageUrl)
+                let fbURL = result["fbURL"] as? String ?? ""
+                let u = User(uid: uid, username: username, email: email, contactNo: contactNo, about: about, firstName:firstName, lastName: lastName, profileImageUrl: profileImageUrl,
+                             fbURL: fbURL)
+                completion(u)
+            }
+        })
+    }
+    
+    static func getUserDetail(userID:String, completion: @escaping (User) -> ()) {
+        databaseRef.child("users").child(userID).observeSingleEvent(of: .value, with: {
+            snapshot in
+            if let result = snapshot.value as? [String:AnyObject]{
+                let uid = result["uid"]! as! String
+                let username = result["userName"]! as! String
+                let email = result["email"]! as! String
+                let firstName = result["firstName"] as? String ?? ""
+                let lastName = result["lastName"] as? String ?? ""
+                let contactNo = result["contactNo"]! as! String
+                let about = result["about"]as? String ?? ""
+                let profileImageUrl = result["profileImageUrl"]! as! String
+                let fbURL = result["fbURL"] as? String ?? ""
+                let u = User(uid: uid, username: username, email: email, contactNo: contactNo, about: about, firstName:firstName, lastName: lastName, profileImageUrl: profileImageUrl,
+                             fbURL: fbURL)
                 completion(u)
             }
         })
@@ -170,7 +192,7 @@ class FirebaseManager: NSObject {
             print(snapshot)
             if let result = snapshot.value as? [String:AnyObject]{
                 print(result)
-                let userId = ""
+                let userId = result["uid"]! as! String
                 let eventId = result["eventId"]! as! String
                 let startDate = result["startDate"]! as! String
                 let endDate = result["endDate"]! as! String
@@ -287,7 +309,8 @@ class FirebaseManager: NSObject {
         databaseRef.child("users").child(currentUserId).observeSingleEvent(of: .value, with: {
             snapshot in
             let result = snapshot.value as? [String:AnyObject]
-            var goingEvent: [String] = result?["goingEvents"] as! [String]
+            print(result)
+            let goingEvent: [String] = result?["goingEvents"] as? [String] ?? []
             if goingEvent.contains(eventId) {
                 completion(true)
             }

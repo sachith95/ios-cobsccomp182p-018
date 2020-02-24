@@ -18,6 +18,7 @@ class UserProfileViewController: RootViewController {
     @IBOutlet weak var aboutTextField: UITextView!
     @IBOutlet weak var profileImageView: UIImageView!
     
+    @IBOutlet weak var fbURLTextField: UITextField!
     var imagePicker = UIImagePickerController()
 
     override func viewDidLoad() {
@@ -37,7 +38,7 @@ class UserProfileViewController: RootViewController {
     }
     
     @IBAction func saveButtonPress(_ sender: Any) {
-        FirebaseManager.UpdateUser(name: userNameTextField.text ?? "", email: emailTextField.text ?? "", contactNo: contactNoTextField.text ?? "", about: aboutTextField.text ?? "", firstName: fNameTextField.text ?? "", lastName: lNameTextField.text ?? "")
+        FirebaseManager.UpdateUser(name: userNameTextField.text ?? "", email: emailTextField.text ?? "", contactNo: contactNoTextField.text ?? "", about: aboutTextField.text ?? "", firstName: fNameTextField.text ?? "", lastName: lNameTextField.text ?? "",fbURL:fbURLTextField.text ?? "")
         self.uploadImage(image: (profileImageView.image ?? nil)! )
     }
     
@@ -92,6 +93,7 @@ class UserProfileViewController: RootViewController {
         contactNoTextField.text = userDetails.contactNo
         aboutTextField.text = userDetails.about
         profileImageView.image = userDetails.getProfileImage()
+        fbURLTextField.text = userDetails.fbURL
     }
     
     

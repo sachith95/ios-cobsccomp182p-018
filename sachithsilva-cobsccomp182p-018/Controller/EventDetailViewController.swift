@@ -35,8 +35,14 @@ class EventDetailViewController: UIViewController {
         if(event != nil){
         self.fillEventDetails()
         }
+        let tap = UITapGestureRecognizer(target: self, action: #selector(EventDetailViewController.tapFunction))
+        organizerLabel.isUserInteractionEnabled = true
+        organizerLabel.addGestureRecognizer(tap)
     }
-    
+    @objc func tapFunction(sender:UITapGestureRecognizer) {
+        print("tap working")
+        self.performSegue(withIdentifier:"viewPublicProfile", sender: self)
+    }
     @IBAction func moreOptButtonPressed(_ sender: Any) {
         let moreOptionMenu = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
         let notGoing = UIAlertAction(title: "Not Going", style: .default, handler: {
@@ -71,6 +77,12 @@ class EventDetailViewController: UIViewController {
             eventImageView.image = event?.getEventImage()
         } else {
             eventImageView.image = UIImage(named: "default")
+        }
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "viewPublicProfile",
+            let destinationViewController = segue.destination as? PublicUserProfileViewController {
+            destinationViewController.userID = event!.userId
         }
     }
 

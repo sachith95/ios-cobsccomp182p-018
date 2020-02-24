@@ -18,9 +18,10 @@ class User: NSObject {
     var about:String = ""
     var firstName:String = ""
     var lastName:String = ""
+    var fbURL:String = ""
     var goingEvents:[String] = []
     
-    init(uid:String, username:String, email:String, contactNo:String, about:String, firstName:String, lastName:String, profileImageUrl:String){
+    init(uid:String, username:String, email:String, contactNo:String, about:String, firstName:String, lastName:String, profileImageUrl:String, fbURL: String){
         self.uid = uid
         self.username = username
         self.email = email
@@ -29,6 +30,7 @@ class User: NSObject {
         self.about = about
         self.firstName = firstName
         self.lastName = lastName
+        self.fbURL = fbURL
     }
     
     func getProfileImage() -> UIImage {

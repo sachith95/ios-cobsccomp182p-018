@@ -11,53 +11,62 @@ import MapKit
 
 
 class MapViewController: UIViewController {
-  let locationManager = CLLocationManager()
+
     @IBOutlet weak var mapView: MKMapView!
-    let initialLocation = CLLocation(latitude: 6.9271, longitude: 79.8612)
-   let regionRadius: CLLocationDistance = 100000
+    
+    let locationManager = CLLocationManager()
+    
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
-        if CLLocationManager.locationServicesEnabled() {
-            switch CLLocationManager.authorizationStatus() {
-            case .notDetermined, .restricted, .denied:
-                locationManager.requestWhenInUseAuthorization()
-                mapView.showsUserLocation = true
-            case .authorizedAlways, .authorizedWhenInUse:
-               mapView.showsUserLocation = true
-            }
-        } else {
-            let alertController = UIAlertController(title: "Location Permission Required", message: "Please enable location permissions in settings.", preferredStyle: UIAlertController.Style.alert)
+        requestLocationAccess()
+       // addAnnotations()
+        
+    }
+    
+    func requestLocationAccess() {
+        let status = CLLocationManager.authorizationStatus()
+        
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse:
+            return
             
-            let okAction = UIAlertAction(title: "Settings", style: .default, handler: {(cAlertAction) in
-                //Redirect to Settings app
-                UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
-            })
+        case .denied, .restricted:
+            print("location access denied")
             
-            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel)
-            alertController.addAction(cancelAction)
-            
-            alertController.addAction(okAction)
-            
-            self.present(alertController, animated: true, completion: nil)
+        default:
+            locationManager.requestWhenInUseAuthorization()
         }
-        centerMapOnLocation(location: initialLocation)
     }
-  
-    func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
-                                                  latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
-        mapView.setRegion(coordinateRegion, animated: true)
+    
+//    func addAnnotations() {
+//        mapView?.delegate = self
+//        mapView?.addAnnotations(places)
+//
+//        let overlays = places.map { MKCircle(center: $0.coordinate, radius: 100) }
+//        mapView?.addOverlays(overlays)
+//    }
+    
+    
+}
+
+extension MapViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil
+        }
+            
+        else {
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "annotationView") ?? MKAnnotationView()
+            annotationView.image = UIImage(named: "place icon")
+            return annotationView
+        }
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKCircleRenderer(overlay: overlay)
+        renderer.fillColor = UIColor.black.withAlphaComponent(0.5)
+        renderer.strokeColor = UIColor.blue
+        renderer.lineWidth = 2
+        return renderer
     }
-    */
-
 }
