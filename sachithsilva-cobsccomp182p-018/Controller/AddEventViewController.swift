@@ -9,7 +9,8 @@
 import UIKit
 
 class AddEventViewController: RootViewController {
-
+    var longtitude:String?
+    var latitude:String?
     @IBOutlet weak var eventImageView: UIImageView!
     @IBOutlet weak var eventNameTextField: UITextField!
     @IBOutlet weak var endDateTextField: UITextField!
@@ -21,13 +22,18 @@ class AddEventViewController: RootViewController {
     @IBOutlet weak var lateTextField: UITextField!
     @IBOutlet weak var eventTypeTextField: UITextField!
     @IBOutlet weak var entranceTextField: UITextField!
+    
+    var mapVC = MapViewController();
+    
     var imagePicker = UIImagePickerController()
     let eventID = String(1000+arc4random_uniform(8999))
     override func viewDidLoad() {
         super.viewDidLoad()
        imagePicker.delegate = self
-        startDateTextField.addInputViewDatePicker(target: self, selector: #selector(doneButtonPressed))
-        endDateTextField.addInputViewDatePicker(target: self, selector: #selector(endDateDoneButtonPressed))
+       startDateTextField.addInputViewDatePicker(target: self, selector: #selector(doneButtonPressed))
+       endDateTextField.addInputViewDatePicker(target: self, selector: #selector(endDateDoneButtonPressed))
+       longTextField.text = longtitude
+       lateTextField.text = latitude
     }
     @objc func doneButtonPressed() {
         if let  datePicker = self.startDateTextField.inputView as? UIDatePicker {
@@ -61,7 +67,15 @@ class AddEventViewController: RootViewController {
         
         self.present(uploadImageOptionMenu, animated: true, completion: nil)
     }
+    override func viewDidAppear(_ animated: Bool){
+        print("ddd")
+        longTextField.text = longtitude
+        lateTextField.text = latitude
+    }
+    
     @IBAction func openMapButtonPress(_ sender: Any) {
+//        self.present(UINavigationController(rootViewController: mapVC), animated: true, completion: nil)
+        self.performSegue(withIdentifier: "toMapView", sender: self)
     }
     @IBAction func saveButtonPress(_ sender: Any) {
         FirebaseManager.addEvent(eventId: self.eventID, startDate: startDateTextField.text ?? "", endDate: endDateTextField.text ?? "", title: eventNameTextField.text ?? "", organizer: hostTextField.text ?? "", about: detailTextField.text ?? "", longitude: longTextField.text ?? "", latitude: lateTextField.text ?? "", venu: venuTextField.text ?? "", eventType: eventTypeTextField.text ?? "", entrance: entranceTextField.text ?? "", goingCount: "1")

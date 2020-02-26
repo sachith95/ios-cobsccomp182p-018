@@ -8,19 +8,37 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
-
-class MapViewController: UIViewController {
-
+class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UINavigationControllerDelegate  {
+    
     @IBOutlet weak var mapView: MKMapView!
     
-    let locationManager = CLLocationManager()
-    
+  
+    private var locationManager: CLLocationManager!
+    private var currentLocation: CLLocation!
     
     override func viewDidLoad() {
-        requestLocationAccess()
-       // addAnnotations()
+//        requestLocationAccess()
+        // addAnnotations()
+        super.viewDidLoad()
         
+        mapView.showsUserLocation = true
+        locationManager = CLLocationManager()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        // Set delegates
+        mapView.delegate = self
+        locationManager.delegate = self
+        
+        // Check for Location Services
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
+            self.currentLocation = locationManager.location
+        }
+        navigationController?.delegate = self
+   
     }
     
     func requestLocationAccess() {
@@ -38,35 +56,29 @@ class MapViewController: UIViewController {
         }
     }
     
-//    func addAnnotations() {
-//        mapView?.delegate = self
-//        mapView?.addAnnotations(places)
-//
-//        let overlays = places.map { MKCircle(center: $0.coordinate, radius: 100) }
-//        mapView?.addOverlays(overlays)
-//    }
-    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        defer { currentLocation = locations.last }
+        
+        if currentLocation == nil {
+            // Zoom to user location
+            if let userLocation = locations.last {
+                let viewRegion = MKCoordinateRegion(center: userLocation.coordinate, latitudinalMeters: 2000, longitudinalMeters: 2000)
+                mapView.setRegion(viewRegion, animated: false)
+            }
+        }
+    }
+
     
 }
 
-extension MapViewController: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is MKUserLocation {
-            return nil
-        }
-            
-        else {
-            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "annotationView") ?? MKAnnotationView()
-            annotationView.image = UIImage(named: "place icon")
-            return annotationView
-        }
+extension MapViewController
+{    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        (viewController as? AddEventViewController)?.longtitude = "\(currentLocation.coordinate.self.longitude)"
+     (viewController as? AddEventViewController)?.latitude  = "\(currentLocation.coordinate.self.latitude)"
     }
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let renderer = MKCircleRenderer(overlay: overlay)
-        renderer.fillColor = UIColor.black.withAlphaComponent(0.5)
-        renderer.strokeColor = UIColor.blue
-        renderer.lineWidth = 2
-        return renderer
+}
+extension UIViewController {
+    open override func awakeFromNib() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: nil, action: nil)
     }
 }

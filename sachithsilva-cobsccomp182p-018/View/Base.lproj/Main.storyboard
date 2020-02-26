@@ -40,15 +40,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRY-Kc-1tj">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bRY-Kc-1tj" customClass="CustomButton" customModule="sachithsilva_cobsccomp182p_018" customModuleProvider="target">
                                 <rect key="frame" x="20" y="434" width="374" height="30"/>
-                                <color key="backgroundColor" red="0.16506117582321167" green="0.29464590549468994" blue="0.57289689779281616" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="ePR-Wh-Tz3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Log In">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="loginButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rsj-dX-rYq"/>
@@ -572,6 +571,9 @@
                                     <constraint firstAttribute="width" constant="90" id="P7f-Fe-ZcW"/>
                                 </constraints>
                                 <state key="normal" title="View on Map"/>
+                                <connections>
+                                    <segue destination="IGB-rN-XLk" kind="show" identifier="showOnMap" id="tEY-6g-eWt"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -746,7 +748,6 @@
                                 <state key="normal" title="Open map"/>
                                 <connections>
                                     <action selector="openMapButtonPress:" destination="jTB-m8-wTr" eventType="touchUpInside" id="o7y-8K-iZl"/>
-                                    <segue destination="IGB-rN-XLk" kind="show" id="nDk-jW-sUG"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2zm-Cn-E60">
@@ -824,25 +825,23 @@
                         <outlet property="longTextField" destination="edr-Kx-T6z" id="Nif-w7-xZb"/>
                         <outlet property="startDateTextField" destination="FRi-Dv-vTm" id="aE7-C8-MT9"/>
                         <outlet property="venuTextField" destination="uNU-Lm-WYo" id="BFQ-o5-mUJ"/>
+                        <segue destination="IGB-rN-XLk" kind="show" identifier="toMapView" id="GvF-iH-KLW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EDb-Xv-CqF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-34.399999999999999" y="2184.5577211394307"/>
         </scene>
-        <!--View Controller-->
+        <!--Event Location-->
         <scene sceneID="ubG-Jj-SNh">
             <objects>
-                <viewController id="IGB-rN-XLk" sceneMemberID="viewController">
+                <viewController id="IGB-rN-XLk" customClass="MapViewController" customModule="sachithsilva_cobsccomp182p_018" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QkE-WE-8xZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ruG-rq-66G">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <connections>
-                                    <outlet property="delegate" destination="IGB-rN-XLk" id="Cjp-W5-8gU"/>
-                                </connections>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -854,6 +853,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="unD-oc-EL4"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Event Location" id="BxA-ch-bcP">
+                        <barButtonItem key="backBarButtonItem" title="Save" id="tmr-OX-C5a"/>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="mapView" destination="ruG-rq-66G" id="IXr-Z2-nyl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zd0-k6-thF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1246,7 +1252,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="rOX-ie-sr1"/>
+        <segue reference="tEY-6g-eWt"/>
         <segue reference="p1g-2m-Bsa"/>
-        <segue reference="Nof-N4-t6w"/>
+        <segue reference="gGc-7N-hxN"/>
     </inferredMetricsTieBreakers>
 </document>
