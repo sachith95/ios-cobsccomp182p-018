@@ -13,6 +13,7 @@ import CoreLocation
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UINavigationControllerDelegate  {
     var eventLong:String?
     var eventLat:String?
+    var eventTitle:String?
     @IBOutlet weak var mapView: MKMapView!
     
   
@@ -21,7 +22,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     override func viewDidLoad() {
 //        requestLocationAccess()
-        // addAnnotations()
+        addAnnotations()
         super.viewDidLoad()
         
         mapView.showsUserLocation = true
@@ -40,6 +41,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
         navigationController?.delegate = self
    
+    }
+    
+    func addAnnotations(){
+        let event = MKPointAnnotation()
+        event.title = self.eventTitle
+        event.coordinate = CLLocationCoordinate2D(latitude: Double(self.eventLat ?? "0.00") as! CLLocationDegrees , longitude: Double(self.eventLong ?? "0.00") as! CLLocationDegrees)
+        mapView.addAnnotation(event)
+        let viewRegion = MKCoordinateRegion( center: event.coordinate, latitudinalMeters: 200, longitudinalMeters: 200)
+        mapView.setRegion(viewRegion, animated: false)
     }
     
     func requestLocationAccess() {

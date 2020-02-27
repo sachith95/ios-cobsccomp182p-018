@@ -21,7 +21,7 @@ class sachithsilva_cobsccomp182p_018Tests: XCTestCase {
     }
 
     func testExample() {
-      FirebaseManager.login(email: <#T##String#>, password: <#T##String#>, completion: <#T##(Bool) -> Void#>)
+      FirebaseManager.login(email: "x@gmail.com", password: "123456", completion: <#T##(Bool) -> Void#>)
     }
 
     func testPerformanceExample() {

@@ -82,7 +82,9 @@ class AddEventViewController: RootViewController {
     @IBAction func saveButtonPress(_ sender: Any) {
         FirebaseManager.addEvent(eventId: self.eventID, startDate: startDateTextField.text ?? "", endDate: endDateTextField.text ?? "", title: eventNameTextField.text ?? "", organizer: hostTextField.text ?? "", about: detailTextField.text ?? "", longitude: longTextField.text ?? "", latitude: lateTextField.text ?? "", venu: venuTextField.text ?? "", eventType: eventTypeTextField.text ?? "", entrance: entranceTextField.text ?? "", goingCount: "1")
           self.performSegue(withIdentifier: "myevent", sender: self)
+        if (self.eventImageView.image != nil){
         self.uploadImage(image: (eventImageView.image ?? nil)!)
+        }
     }
     
     func openCamera()

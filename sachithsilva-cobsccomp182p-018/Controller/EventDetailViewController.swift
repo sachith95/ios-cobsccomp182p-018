@@ -84,6 +84,12 @@ class EventDetailViewController: UIViewController {
             let destinationViewController = segue.destination as? PublicUserProfileViewController {
             destinationViewController.userID = event!.userId
         }
+        if segue.identifier == "showOnMap",
+            let destinationViewController = segue.destination as? MapViewController {
+            destinationViewController.eventLat = latitudeLabel.text
+            destinationViewController.eventLong = longertitudeLabel.text
+            destinationViewController.eventTitle = event?.title
+        }
     }
 
 }

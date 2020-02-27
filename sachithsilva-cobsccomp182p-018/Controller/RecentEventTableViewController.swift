@@ -11,6 +11,8 @@ import SwiftyJSON
 
 class RecentEventTableViewController: UITableViewController {
 
+    
+    @IBOutlet var LoginBarButton: UIBarButtonItem!
     private let searchController = UISearchController(searchResultsController: nil)
     private var previousRun = Date()
     private let minInterval = 0.05
@@ -20,7 +22,7 @@ class RecentEventTableViewController: UITableViewController {
         }
     }
      var selectedEvent:Event?
-    var isGuest:Bool = false
+    var isGuest:Bool?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,19 +36,8 @@ class RecentEventTableViewController: UITableViewController {
         tableView.tableFooterView = UIView()
         setupTableViewBackgroundView()
         setupSearchBar()
-        
-        if(isGuest){
-            let tabBarItem2:UITabBarItem
-             let tabBarItem1:UITabBarItem
-            let tabBarControllerItems = self.tabBarController?.tabBar.items
-            
-            if let tabArray = tabBarControllerItems {
-                tabBarItem1 = tabArray[0]
-                tabBarItem2 = tabArray[1]
-                
-                tabBarItem1.isEnabled = false
-                tabBarItem2.isEnabled = false
-            }
+        if(isGuest == false){
+       self.navigationItem.rightBarButtonItem = nil
         }
     }
 
