@@ -309,7 +309,6 @@ class FirebaseManager: NSObject {
         databaseRef.child("users").child(currentUserId).observeSingleEvent(of: .value, with: {
             snapshot in
             let result = snapshot.value as? [String:AnyObject]
-            print(result)
             let goingEvent: [String] = result?["goingEvents"] as? [String] ?? []
             if goingEvent.contains(eventId) {
                 completion(true)

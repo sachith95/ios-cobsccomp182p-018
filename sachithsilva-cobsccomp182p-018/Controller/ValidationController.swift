@@ -19,7 +19,7 @@ class ValidationController {
     
     // Validate Password
     static func isValidPassword(password: String) -> Bool {
-        let passwordRegEx = "^(?=.*[a-z])(?=.*[$@$#!%*?&])[A-Za-z\\d$@$#!%*?&]{4,16}"
+        let passwordRegEx = "^(?=.*[a-z])(?=.*[$@$#!%*?&])[A-Za-z\\d$@$#!%*?&]{6,16}"
         let passwordTest = NSPredicate(format:"SELF MATCHES %@", passwordRegEx)
         let result = passwordTest.evaluate(with: password)
         return result

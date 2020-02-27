@@ -94,6 +94,7 @@ class UserProfileViewController: RootViewController {
         aboutTextField.text = userDetails.about
         profileImageView.image = userDetails.getProfileImage()
         fbURLTextField.text = userDetails.fbURL
+        UserDefaults.standard.set(userDetails.username, forKey: "username")
     }
     
     

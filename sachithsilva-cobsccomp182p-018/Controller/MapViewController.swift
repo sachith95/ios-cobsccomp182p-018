@@ -2,7 +2,7 @@
 //  MapViewController.swift
 //  sachithsilva-cobsccomp182p-018
 //
-//  Created by Janith Ganewatta on 2/21/20.
+//  Created by Sachith Silva on 2/21/20.
 //  Copyright © 2020 NIBM. All rights reserved.
 //
 
@@ -11,7 +11,8 @@ import MapKit
 import CoreLocation
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UINavigationControllerDelegate  {
-    
+    var eventLong:String?
+    var eventLat:String?
     @IBOutlet weak var mapView: MKMapView!
     
   
@@ -60,25 +61,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         defer { currentLocation = locations.last }
         
         if currentLocation == nil {
-            // Zoom to user location
             if let userLocation = locations.last {
-                let viewRegion = MKCoordinateRegion(center: userLocation.coordinate, latitudinalMeters: 2000, longitudinalMeters: 2000)
+        let viewRegion = MKCoordinateRegion(center: userLocation.coordinate, latitudinalMeters: 2000, longitudinalMeters: 2000)
                 mapView.setRegion(viewRegion, animated: false)
             }
         }
     }
 
-    
 }
 
 extension MapViewController
 {    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         (viewController as? AddEventViewController)?.longtitude = "\(currentLocation.coordinate.self.longitude)"
      (viewController as? AddEventViewController)?.latitude  = "\(currentLocation.coordinate.self.latitude)"
-    }
-}
-extension UIViewController {
-    open override func awakeFromNib() {
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: nil, action: nil)
     }
 }

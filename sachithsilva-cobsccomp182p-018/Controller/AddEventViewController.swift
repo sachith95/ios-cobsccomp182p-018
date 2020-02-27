@@ -68,9 +68,11 @@ class AddEventViewController: RootViewController {
         self.present(uploadImageOptionMenu, animated: true, completion: nil)
     }
     override func viewDidAppear(_ animated: Bool){
-        print("ddd")
         longTextField.text = longtitude
         lateTextField.text = latitude
+        hostTextField.text =  UserDefaults.standard.string(forKey: "username") ?? "Hosted by NIBM"
+        eventTypeTextField.text = eventTypeTextField.text != "" ? eventTypeTextField.text : "Public"
+        entranceTextField.text = entranceTextField.text != "" ? entranceTextField.text : "Free"
     }
     
     @IBAction func openMapButtonPress(_ sender: Any) {

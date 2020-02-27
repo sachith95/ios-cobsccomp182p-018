@@ -2,7 +2,7 @@
 //  sachithsilva_cobsccomp182p_018UITests.swift
 //  sachithsilva-cobsccomp182p-018UITests
 //
-//  Created by Janith Ganewatta on 2/8/20.
+//  Created by Sachith Silva on 2/8/20.
 //  Copyright © 2020 NIBM. All rights reserved.
 //
 
@@ -19,7 +19,6 @@ class sachithsilva_cobsccomp182p_018UITests: XCTestCase {
         // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
         XCUIApplication().launch()
 
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
 
     override func tearDown() {

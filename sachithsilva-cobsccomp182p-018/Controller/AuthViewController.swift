@@ -18,6 +18,9 @@ class AuthViewController: RootViewController {
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func guestButtonPress(_ sender: Any) {
+         self.performSegue(withIdentifier: "guestView", sender: self)
+    }
     @IBAction func loginButtonPressed(_ sender: Any) {
         
 //        if(ValidationController.isValidPassword(password: passwordTextField.text!) && ValidationController.isValidEmail(email: emailTextField.text!)){
@@ -56,4 +59,10 @@ class AuthViewController: RootViewController {
         
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "guestView",
+            let destinationViewController = segue.destination as? RecentEventTableViewController {
+            destinationViewController.isGuest = true
+        }
+    }
 }
