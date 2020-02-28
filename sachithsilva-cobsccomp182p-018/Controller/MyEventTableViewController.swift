@@ -56,12 +56,14 @@ class MyEventTableViewController: UITableViewController {
         let u = FirebaseManager.events[indexPath.row]
         cell.titleLabel.text = u.title
         cell.dateLabel.text = u.startDate
-        cell.organizerLabel.text = u.userId
+        cell.organizerLabel.text = u.organizer
         if(u.eventImageUrl != ""){
             cell.eventImage.image = u.getEventImage()
         } else {
             cell.eventImage.image = UIImage(named: "default")
         }
+        let perLevel:CGFloat = CGFloat(1.0) / CGFloat(FirebaseManager.events.count)
+        cell.backgroundColor = UIColor.init(red: 35 / 255.0, green: 204/255.0, blue: 216.0/255.0, alpha: (perLevel + CGFloat(indexPath.row) * perLevel))
         return cell
     }
     

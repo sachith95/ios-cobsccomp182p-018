@@ -76,15 +76,14 @@ class AddEventViewController: RootViewController {
     }
     
     @IBAction func openMapButtonPress(_ sender: Any) {
-//        self.present(UINavigationController(rootViewController: mapVC), animated: true, completion: nil)
         self.performSegue(withIdentifier: "toMapView", sender: self)
     }
     @IBAction func saveButtonPress(_ sender: Any) {
         FirebaseManager.addEvent(eventId: self.eventID, startDate: startDateTextField.text ?? "", endDate: endDateTextField.text ?? "", title: eventNameTextField.text ?? "", organizer: hostTextField.text ?? "", about: detailTextField.text ?? "", longitude: longTextField.text ?? "", latitude: lateTextField.text ?? "", venu: venuTextField.text ?? "", eventType: eventTypeTextField.text ?? "", entrance: entranceTextField.text ?? "", goingCount: "1")
-          self.performSegue(withIdentifier: "myevent", sender: self)
         if (self.eventImageView.image != nil){
         self.uploadImage(image: (eventImageView.image ?? nil)!)
         }
+        _ = navigationController?.popViewController(animated: true)
     }
     
     func openCamera()

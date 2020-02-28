@@ -51,11 +51,13 @@ class FirebaseManager: NSObject {
         })
     }
     static func AddUser(name:String, email:String, contactNo:String){
+        var going:[String] = ["1"]
         let user = ["uid":currentUserId,
                     "userName": name,
                     "email": email,
                     "contactNo": contactNo,
-                    "profileImageUrl":""]
+                    "profileImageUrl":"",
+                    "goingEvents":going] as [String : Any]
         databaseRef.child("users").child(currentUserId).setValue(user){ error, ref in
             if error != nil {
                 print("asdrt", error as Any)
@@ -226,7 +228,7 @@ class FirebaseManager: NSObject {
         databaseRef.child("users").child(currentUserId).observeSingleEvent(of: .value, with: {
             snapshot in
             let result = snapshot.value as? [String:AnyObject]
-            var goingEvent: [String] = result?["goingEvents"] as! [String]
+            var goingEvent: [String] = result?["goingEvents"] as! [String] ?? [String]()
             goingEvent.append(eventId)
             databaseRef.child("users").child(currentUserId).updateChildValues(["goingEvents": goingEvent ])
         })

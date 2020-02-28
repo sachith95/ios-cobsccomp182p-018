@@ -63,14 +63,14 @@ class EventDetailViewController: UIViewController {
          FirebaseManager.updateNotGoingCount(eventId: event!.eventId)
     }
     func fillEventDetails(){
-        organizerLabel.text = event?.organizer
+        organizerLabel.text = "Hosted By \(event?.organizer ?? "Unknown")"
         dateLabel.text = "\(event?.startDate ?? "") - \(event?.endDate ?? "")"
         titlelabel.text = event?.title
-        noOfGoingLabel.text = event?.goingCount
-        venuLabel.text = event?.venu
-        eventTypeLabel.text = event?.eventType
-        entranceLabel.text = event?.entrance
-        aboutTextField.text = event?.about
+        noOfGoingLabel.text = "\(event?.goingCount ?? "0") people are going"
+        venuLabel.text = "Join us on \(event?.venu ?? "Unknown")"
+        eventTypeLabel.text = "\(event?.eventType ?? "Public") Invitation"
+        entranceLabel.text = "Entrance \(event?.entrance ?? "Free")"
+        aboutTextField.text = "Details: \(event?.about ?? "Details not available")"
         latitudeLabel.text = event?.latitude
         longertitudeLabel.text = event?.longitude
         if(event?.eventImageUrl != ""){
