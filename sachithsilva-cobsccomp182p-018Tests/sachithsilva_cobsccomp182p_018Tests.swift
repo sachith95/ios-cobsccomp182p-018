@@ -20,9 +20,13 @@ class sachithsilva_cobsccomp182p_018Tests: XCTestCase {
         
     }
 
-    func testExample() {
-     let auth= AuthViewController()
-        auth.loginButtonPressed(<#T##sender: Any##Any#>)
+    func testLogin() {
+        let value = true
+        FirebaseManager.login(email: "g@gmail.com",password: "nibm@123"){
+            (success:Bool) in
+            print("ffff",success)
+            XCTAssertEqual(success, value)
+        }
     }
 
     func testPerformanceExample() {
@@ -31,5 +35,5 @@ class sachithsilva_cobsccomp182p_018Tests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-
 }
+

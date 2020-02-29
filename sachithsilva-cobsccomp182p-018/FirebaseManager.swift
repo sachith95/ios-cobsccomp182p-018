@@ -161,7 +161,7 @@ class FirebaseManager: NSObject {
                 let lastName = result["lastName"] as? String ?? ""
                 let contactNo = result["contactNo"]! as! String
                 let about = result["about"]as? String ?? ""
-                let profileImageUrl = result["profileImageUrl"]! as! String
+                let profileImageUrl = result["profileImageUrl"] as? String ?? ""
                 let fbURL = result["fbURL"] as? String ?? ""
                 let u = User(uid: uid, username: username, email: email, contactNo: contactNo, about: about, firstName:firstName, lastName: lastName, profileImageUrl: profileImageUrl,
                              fbURL: fbURL)

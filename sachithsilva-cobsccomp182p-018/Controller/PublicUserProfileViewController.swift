@@ -25,6 +25,14 @@ class PublicUserProfileViewController: UIViewController {
         FirebaseManager.getUserDetail(userID: self.userID){ (user) in
             self.fillUser(userDetails: user)
         }
+        let tap = UITapGestureRecognizer(target: self, action: #selector(PublicUserProfileViewController.tapFunction))
+        fbURLabel.isUserInteractionEnabled = true
+        fbURLabel.addGestureRecognizer(tap)
+    }
+    @objc func tapFunction() {
+        let fb  = fbURLabel?.text ?? "https://www.facebook.com/"
+        let url = URL(string: fb)!
+        UIApplication.shared.open(url)
     }
     
     func fillUser(userDetails:User) {

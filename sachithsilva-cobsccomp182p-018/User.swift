@@ -40,6 +40,5 @@ class User: NSObject {
             }
         }
         return UIImage()
-    }    
-
+    }
 }

@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "sachithsilva-cobsccomp182p-018/FirebaseManager.swift"
-            timestampString = "604696659.740909"
+            timestampString = "604700268.315859"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "47"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "sachithsilva-cobsccomp182p-018/FirebaseManager.swift"
-            timestampString = "604696659.741008"
+            timestampString = "604700268.315931"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "32"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "sachithsilva-cobsccomp182p-018/FirebaseManager.swift"
-            timestampString = "604696659.7410589"
+            timestampString = "604700268.315982"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "51"
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "sachithsilva-cobsccomp182p-018/Controller/AuthViewController.swift"
-            timestampString = "604532173.980286"
+            timestampString = "604698262.146778"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "18"
@@ -90,7 +90,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "sachithsilva-cobsccomp182p-018/Controller/AuthViewController.swift"
-            timestampString = "604532173.980335"
+            timestampString = "604698262.146825"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "13"
@@ -198,11 +198,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "sachithsilva-cobsccomp182p-018/Controller/MyEventTableViewController.swift"
-            timestampString = "604690680.389359"
+            timestampString = "604700268.316087"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
             landmarkName = "addEvent(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -230,7 +230,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "sachithsilva-cobsccomp182p-018/FirebaseManager.swift"
-            timestampString = "604696659.741178"
+            timestampString = "604700268.316151"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "259"
@@ -269,6 +269,22 @@
                   offsetFromSymbolStart = "562">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "sachithsilva-cobsccomp182p-018Tests/sachithsilva_cobsccomp182p_018Tests.swift"
+            timestampString = "604700268.316203"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "testLogin()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
