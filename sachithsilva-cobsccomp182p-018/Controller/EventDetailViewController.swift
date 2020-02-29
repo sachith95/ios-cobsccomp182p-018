@@ -30,6 +30,7 @@ class EventDetailViewController: UIViewController {
             (bool) in
             if(bool){
                 self.goingButton.isEnabled = false
+                self.goingButton.alpha = 0.5
             }
         }
         if(event != nil){

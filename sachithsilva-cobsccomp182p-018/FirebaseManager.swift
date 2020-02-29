@@ -17,7 +17,7 @@ class FirebaseManager: NSObject {
     static var currentUserId:String = Auth.auth().currentUser!.uid
     static var currentUser: FirebaseAuth.User? = nil
     static var events = [Event]()
-    
+    static var myEvents = [Event]()
    static func login(email: String,password:String,completion: @escaping (_ success:Bool) -> Void) {
         Auth.auth().signIn(withEmail: email, password:password , completion: { (user, error) in
             if let error = error {
@@ -51,13 +51,13 @@ class FirebaseManager: NSObject {
         })
     }
     static func AddUser(name:String, email:String, contactNo:String){
-        var going:[String] = ["1"]
+        let going:String = "1"
         let user = ["uid":currentUserId,
                     "userName": name,
                     "email": email,
                     "contactNo": contactNo,
-                    "profileImageUrl":"",
-                    "goingEvents":going] as [String : Any]
+                    "profileImageUrl": "",
+                    "goingEvents": [going]] as [String : Any]
         databaseRef.child("users").child(currentUserId).setValue(user){ error, ref in
             if error != nil {
                 print("asdrt", error as Any)
@@ -65,7 +65,8 @@ class FirebaseManager: NSObject {
         }
     }
     
-    static func UpdateUser(name:String, email:String, contactNo:String, about: String, firstName:String, lastName: String, fbURL:String){
+    static func UpdateUser(name:String, email:String, contactNo:String, about: String, firstName:String, lastName: String, fbURL:String , going:[String], completion: @escaping (String?)->()) {
+        
         let user = ["uid":currentUserId,
                     "userName": name,
                     "email": email,
@@ -73,11 +74,14 @@ class FirebaseManager: NSObject {
                     "firstName": firstName,
                     "lastName": lastName,
                     "about": about,
-                    "fbURL":fbURL]
+                    "fbURL":fbURL,
+                    "goingEvents": [going]] as [String : Any]
         databaseRef.child("users").child(currentUserId).setValue(user){ error, ref in
             if error != nil {
-                print("asdrt", error as Any)
+                print("error", error as Any)
+                completion(error!.localizedDescription)
             }
+            completion(nil)
         }
     }
     
@@ -137,7 +141,7 @@ class FirebaseManager: NSObject {
                 let lastName = result["lastName"] as? String ?? ""
                 let contactNo = result["contactNo"]! as! String
                 let about = result["about"]as? String ?? ""
-                let profileImageUrl = result["profileImageUrl"]! as! String
+                let profileImageUrl = result["profileImageUrl"] as? String ?? ""
                 let fbURL = result["fbURL"] as? String ?? ""
                 let u = User(uid: uid, username: username, email: email, contactNo: contactNo, about: about, firstName:firstName, lastName: lastName, profileImageUrl: profileImageUrl,
                              fbURL: fbURL)
@@ -211,9 +215,9 @@ class FirebaseManager: NSObject {
                 
                 let e = Event(userId: userId, eventId: eventId, startDate: startDate, endDate: endDate, title: title, organizer: organizer, about: about, longitude: longitude, latitude: latitude, venu: venu, eventType: eventType, entrance: entrance, goingCount: goingCount, eventImageUrl: eventImageUrl)
                 
-                FirebaseManager.events.append(e)
+                FirebaseManager.myEvents.append(e)
             }
-            completion(FirebaseManager.events)
+            completion(FirebaseManager.myEvents)
         })
     }
     
@@ -280,7 +284,8 @@ class FirebaseManager: NSObject {
     
     static func search(searchText:String,completion: @escaping ([Event]) -> ()) {
         events = []
-        databaseRef.child("Events").queryOrdered(byChild: "title").queryEqual(toValue: searchText).observe(.childAdded, with: {
+        print("search")
+        databaseRef.child("Events").queryOrdered(byChild: "title").queryStarting(atValue: searchText).observe(.childAdded, with: {
             snapshot in
             print(snapshot)
             if let result = snapshot.value as? [String:AnyObject]{

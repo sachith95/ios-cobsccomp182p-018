@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SwiftyJSON
+import SVProgressHUD
 
 class RecentEventTableViewController: UITableViewController {
 
@@ -25,7 +25,7 @@ class RecentEventTableViewController: UITableViewController {
     var isGuest:Bool?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        SVProgressHUD.show()
         FirebaseManager.getAllEvents(){
             (event) in
             self.eventsResults = event
@@ -33,6 +33,7 @@ class RecentEventTableViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         }
+        SVProgressHUD.dismiss()
         tableView.tableFooterView = UIView()
         setupTableViewBackgroundView()
         setupSearchBar()
@@ -41,7 +42,7 @@ class RecentEventTableViewController: UITableViewController {
         }
     }
 
-
+  
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath ) -> CGFloat {
         // #warning Incomplete implementation, return the number of rows
         return 265
@@ -130,9 +131,17 @@ extension RecentEventTableViewController: UISearchBarDelegate {
 
             self?.eventsResults = results
         })
+        
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         eventsResults.removeAll()
+        FirebaseManager.getAllEvents(){
+            (event) in
+            self.eventsResults = event
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
 }

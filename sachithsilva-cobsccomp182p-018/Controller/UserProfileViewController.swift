@@ -20,7 +20,7 @@ class UserProfileViewController: RootViewController {
     
     @IBOutlet weak var fbURLTextField: UITextField!
     var imagePicker = UIImagePickerController()
-
+    var goingEvents=[String]()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,8 +38,22 @@ class UserProfileViewController: RootViewController {
     }
     
     @IBAction func saveButtonPress(_ sender: Any) {
-        FirebaseManager.UpdateUser(name: userNameTextField.text ?? "", email: emailTextField.text ?? "", contactNo: contactNoTextField.text ?? "", about: aboutTextField.text ?? "", firstName: fNameTextField.text ?? "", lastName: lNameTextField.text ?? "",fbURL:fbURLTextField.text ?? "")
+        FirebaseManager.UpdateUser(name: userNameTextField.text ?? "", email: emailTextField.text ?? "", contactNo: contactNoTextField.text ?? "", about: aboutTextField.text ?? "", firstName: fNameTextField.text ?? "", lastName: lNameTextField.text ?? "",fbURL:fbURLTextField.text ?? "",going: goingEvents , completion: { val in
+            if (val == nil){
+                let alertController = UIAlertController(title: "Success", message: "User Data Updated Successfully", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Ok", style: .default))
+                
+                self.present(alertController, animated: true, completion: nil)
+            }
+            else{
+                let alertController = UIAlertController(title: "Error", message: val, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Ok", style: .default))
+                
+                self.present(alertController, animated: true, completion: nil)
+            }
+        })
         self.uploadImage(image: (profileImageView.image ?? nil)! )
+        
     }
     
     @IBAction func uploadButtonPress(_ sender: Any) {
@@ -94,6 +108,7 @@ class UserProfileViewController: RootViewController {
         aboutTextField.text = userDetails.about
         profileImageView.image = userDetails.getProfileImage()
         fbURLTextField.text = userDetails.fbURL
+        goingEvents = userDetails.goingEvents
         UserDefaults.standard.set(userDetails.username, forKey: "username")
     }
     

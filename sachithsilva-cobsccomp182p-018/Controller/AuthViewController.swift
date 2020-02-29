@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class AuthViewController: RootViewController {
 
@@ -24,7 +25,7 @@ class AuthViewController: RootViewController {
     @IBAction func loginButtonPressed(_ sender: Any) {
         
 //        if(ValidationController.isValidPassword(password: passwordTextField.text!) && ValidationController.isValidEmail(email: emailTextField.text!)){
-        
+          SVProgressHUD.show()
             FirebaseManager.login(email: emailTextField.text!,password: passwordTextField.text!){
                 (success:Bool) in
                 if(!success) {
@@ -47,7 +48,7 @@ class AuthViewController: RootViewController {
                     
                     self.performSegue(withIdentifier: "loginSuccessSegue", sender: self)
                     
-                    // SVProgressHUD.dismiss()
+                    SVProgressHUD.dismiss()
                 }
             }
 //        }else{

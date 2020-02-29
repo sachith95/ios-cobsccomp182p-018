@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class MyEventTableViewController: UITableViewController {
 
@@ -16,12 +17,14 @@ class MyEventTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        SVProgressHUD.show()
         FirebaseManager.getUserEvents() {
             (event) in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
+         SVProgressHUD.dismiss()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -42,7 +45,7 @@ class MyEventTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return FirebaseManager.events.count
+        return FirebaseManager.myEvents.count
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath ) -> CGFloat {
@@ -53,7 +56,7 @@ class MyEventTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomTableViewCell
         
-        let u = FirebaseManager.events[indexPath.row]
+        let u = FirebaseManager.myEvents[indexPath.row]
         cell.titleLabel.text = u.title
         cell.dateLabel.text = u.startDate
         cell.organizerLabel.text = u.organizer
@@ -62,13 +65,13 @@ class MyEventTableViewController: UITableViewController {
         } else {
             cell.eventImage.image = UIImage(named: "default")
         }
-        let perLevel:CGFloat = CGFloat(1.0) / CGFloat(FirebaseManager.events.count)
+        let perLevel:CGFloat = CGFloat(1.0) / CGFloat(FirebaseManager.myEvents.count)
         cell.backgroundColor = UIColor.init(red: 35 / 255.0, green: 204/255.0, blue: 216.0/255.0, alpha: (perLevel + CGFloat(indexPath.row) * perLevel))
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedEvent = FirebaseManager.events[indexPath.row]
+        selectedEvent = FirebaseManager.myEvents[indexPath.row]
         self.performSegue(withIdentifier: "eventDetailView", sender: self)
     }
     

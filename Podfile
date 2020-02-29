@@ -10,7 +10,7 @@ target 'sachithsilva-cobsccomp182p-018' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
-  pod 'SwiftyJSON', '~> 4.0'
+  pod 'SVProgressHUD'
 
 
   target 'sachithsilva-cobsccomp182p-018Tests' do
