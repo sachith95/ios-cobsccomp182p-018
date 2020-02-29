@@ -11,6 +11,7 @@ import UIKit
 class AllEventTableViewCell: UITableViewCell {
 
     
+    @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var eventImage: UIImageView!
     
     @IBOutlet weak var dateLabel: UILabel!

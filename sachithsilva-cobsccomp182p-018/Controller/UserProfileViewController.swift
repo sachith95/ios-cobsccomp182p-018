@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IPImage
 
 class UserProfileViewController: RootViewController {
 
@@ -106,10 +107,16 @@ class UserProfileViewController: RootViewController {
         lNameTextField.text = userDetails.lastName
         contactNoTextField.text = userDetails.contactNo
         aboutTextField.text = userDetails.about
-        profileImageView.image = userDetails.getProfileImage()
+       
         fbURLTextField.text = userDetails.fbURL
         goingEvents = userDetails.goingEvents
         UserDefaults.standard.set(userDetails.username, forKey: "username")
+        if userDetails.profileImageUrl == ""{
+            let ipimage = IPImage(text: userDetails.username, radius: 30, font: UIFont(name: "Cochin-Italic", size: 30), textColor: nil, randomBackgroundColor: true)
+            profileImageView.image = ipimage.generateImage()
+        }else{
+            profileImageView.image = userDetails.getProfileImage()
+        }
     }
     
     

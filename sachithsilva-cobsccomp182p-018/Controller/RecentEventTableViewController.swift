@@ -8,6 +8,7 @@
 
 import UIKit
 import SVProgressHUD
+import IPImage
 
 class RecentEventTableViewController: UITableViewController {
 
@@ -77,6 +78,16 @@ class RecentEventTableViewController: UITableViewController {
         } else {
             cell.eventImage.image = UIImage(named: "default")
         }
+        FirebaseManager.getUserDetail(userID: u.userId){ (user) in
+            if user.profileImageUrl == ""{
+                let ipimage = IPImage(text: user.username, radius: 30, font: UIFont(name: "Cochin-Italic", size: 30), textColor: nil, randomBackgroundColor: true)
+                cell.avatarImage.image = ipimage.generateImage()
+            }
+            else {
+                   cell.avatarImage.image = user.getProfileImage()
+            }
+        }
+        
         let perLevel:CGFloat = CGFloat(1.0) / CGFloat(FirebaseManager.events.count)
         cell.backgroundColor = UIColor.init(red: 35 / 255.0, green: 204/255.0, blue: 216.0/255.0, alpha: (perLevel + CGFloat(indexPath.row) * perLevel))
         return cell

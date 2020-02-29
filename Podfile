@@ -11,7 +11,7 @@ target 'sachithsilva-cobsccomp182p-018' do
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
   pod 'SVProgressHUD'
-
+  pod 'IPImage'
 
   target 'sachithsilva-cobsccomp182p-018Tests' do
     inherit! :search_paths
