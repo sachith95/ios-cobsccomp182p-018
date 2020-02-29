@@ -25,9 +25,38 @@ class sachithsilva_cobsccomp182p_018UITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    //login test
     func testExample() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+        let app = XCUIApplication()
+        app.textFields["Email address"].tap()
+        
+        let passwordSecureTextField = app.secureTextFields["Password"]
+        passwordSecureTextField.tap()
+    
+        app.buttons["Log In"].tap()
+
+        
+    }
+    // create account test
+    func testCreateAccount()  {
+        
+        let app = XCUIApplication()
+        app.buttons["Create New NIBM Event Account"].tap()
+        app.textFields["Email"].tap()
+        
+        let passwordSecureTextField = app.secureTextFields["Password"]
+        passwordSecureTextField.tap()
+
+        
+        let communityUserNameTextField = app.textFields["Community/User Name"]
+        communityUserNameTextField.tap()
+ 
+
+        
+        let contactNumberTextField = app.textFields["Contact Number"]
+        contactNumberTextField.tap()
+        app.buttons["Sign Up"].tap()
     }
 
 }
