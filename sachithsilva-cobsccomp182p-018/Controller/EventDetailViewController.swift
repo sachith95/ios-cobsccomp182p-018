@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import IPImage
 class EventDetailViewController: UIViewController {
     
     var event:Event?
@@ -24,6 +24,7 @@ class EventDetailViewController: UIViewController {
     @IBOutlet weak var longertitudeLabel: UILabel!
     @IBOutlet weak var goingButton: UIButton!
     
+    @IBOutlet weak var avtarImage: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         let gradientLayer = CAGradientLayer()
@@ -41,6 +42,7 @@ class EventDetailViewController: UIViewController {
         if(event != nil){
         self.fillEventDetails()
         }
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(EventDetailViewController.tapFunction))
         organizerLabel.isUserInteractionEnabled = true
         organizerLabel.addGestureRecognizer(tap)
@@ -84,6 +86,17 @@ class EventDetailViewController: UIViewController {
         } else {
             eventImageView.image = UIImage(named: "default")
         }
+        
+        FirebaseManager.getUserDetail(userID: event!.userId){ (user) in
+            if user.profileImageUrl == ""{
+                let ipimage = IPImage(text: user.username, radius: 30, font: UIFont(name: "Cochin-Italic", size: 30), textColor: nil, randomBackgroundColor: true)
+                self.avtarImage.image = ipimage.generateImage()
+            }
+            else {
+                self.avtarImage.image = user.getProfileImage()
+            }
+        }
+        
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "viewPublicProfile",
