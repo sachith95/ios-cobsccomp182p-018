@@ -8,6 +8,7 @@
 
 import UIKit
 import IPImage
+import LocalAuthentication
 
 class UserProfileViewController: RootViewController {
 
@@ -25,11 +26,14 @@ class UserProfileViewController: RootViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        FirebaseManager.getCurrentUser(){ (user) in
-            self.fillUser(userDetails: user)
+        if(authenticationWithTouchID())
+        {
+            FirebaseManager.getCurrentUser(){ (user) in
+                self.fillUser(userDetails: user)
+            }
+            
+            imagePicker.delegate = self
         }
-        
-        imagePicker.delegate = self
     }
 
  
@@ -118,7 +122,41 @@ class UserProfileViewController: RootViewController {
             profileImageView.image = userDetails.getProfileImage()
         }
     }
-    
+    func authenticationWithTouchID()->Bool {
+        let localAuthenticationContext = LAContext()
+        localAuthenticationContext.localizedFallbackTitle = "Please use your Passcode"
+        
+        var authorizationError: NSError?
+        let reason = "Authentication required to access the secure data"
+        
+        if localAuthenticationContext.canEvaluatePolicy(.deviceOwnerAuthentication, error: &authorizationError) {
+            
+            localAuthenticationContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, evaluateError in
+                
+                if success {
+                    DispatchQueue.main.async() {
+                        return true
+                    }
+                    
+                } else {
+                    // Failed to authenticate
+                    guard let error = evaluateError else {
+                        return
+                    }
+                    print(error)
+                    
+                }
+            }
+        } else {
+            
+            guard let error = authorizationError else {
+                return false
+            }
+            print(error)
+        }
+        return true
+    }
+
     
 }
 
