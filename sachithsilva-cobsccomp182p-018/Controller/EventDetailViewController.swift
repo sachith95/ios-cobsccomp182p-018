@@ -26,6 +26,11 @@ class EventDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.view.bounds
+        gradientLayer.colors = [UIColor.blue.cgColor, UIColor.purple.cgColor]
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+       
         FirebaseManager.checkGoingEvent(eventId: event!.eventId){
             (bool) in
             if(bool){
