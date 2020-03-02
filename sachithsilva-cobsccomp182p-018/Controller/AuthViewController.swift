@@ -40,6 +40,7 @@ class AuthViewController: RootViewController {
                     alertController.addAction(UIAlertAction(title: "TRY AGAIN", style: .default))
                     
                     self.present(alertController, animated: true, completion: nil)
+                    SVProgressHUD.dismiss()
                 } else {
                     print("Login Success.")
                     
