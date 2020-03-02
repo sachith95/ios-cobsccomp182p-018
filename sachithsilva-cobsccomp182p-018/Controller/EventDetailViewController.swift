@@ -23,7 +23,7 @@ class EventDetailViewController: UIViewController {
     @IBOutlet weak var latitudeLabel: UILabel!
     @IBOutlet weak var longertitudeLabel: UILabel!
     @IBOutlet weak var goingButton: UIButton!
-    
+
     @IBOutlet weak var avtarImage: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,13 +32,6 @@ class EventDetailViewController: UIViewController {
         gradientLayer.colors = [UIColor.blue.cgColor, UIColor.purple.cgColor]
         self.view.layer.insertSublayer(gradientLayer, at: 0)
        
-        FirebaseManager.checkGoingEvent(eventId: event!.eventId){
-            (bool) in
-            if(bool){
-                self.goingButton.isEnabled = false
-                self.goingButton.alpha = 0.5
-            }
-        }
         if(event != nil){
         self.fillEventDetails()
         }
@@ -66,9 +59,13 @@ class EventDetailViewController: UIViewController {
     
     @IBAction func goingButtonPressed(_ sender: Any) {
         FirebaseManager.updateGoingCount(eventId: event!.eventId)
+        self.goingButton.isEnabled = false
+        self.goingButton.alpha = 0.1
     }
     func notGoingAction() {
-         FirebaseManager.updateNotGoingCount(eventId: event!.eventId)
+        FirebaseManager.updateNotGoingCount(eventId: event!.eventId)
+        self.goingButton.isEnabled = true
+        self.goingButton.alpha = 1
     }
     func fillEventDetails(){
         organizerLabel.text = "Hosted By \(event?.organizer ?? "Unknown")"

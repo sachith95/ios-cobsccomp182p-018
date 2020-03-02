@@ -123,7 +123,10 @@ class FirebaseManager: NSObject {
                             print(Error as Any)
                             return
                         }
-                       databaseRef.child("Events").queryOrdered(byChild: "eventId").queryEqual(toValue: eventID).ref.updateChildValues(["eventImageUrl": downloadUrl.absoluteString])
+                       databaseRef.child("Events").queryOrdered(byChild: "eventId").queryEqual(toValue: eventID).observe(.childAdded, with: {
+                            snapshot in
+                            databaseRef.child("Events").child(snapshot.key).updateChildValues(["eventImageUrl": downloadUrl.absoluteString])
+                        })
                     })
                     
                 }
@@ -229,13 +232,6 @@ class FirebaseManager: NSObject {
             let updateCount = Int(goingCount)!+1
             databaseRef.child("Events").child(snapshot.key).updateChildValues(["goingCount": String(updateCount)])
         })
-        databaseRef.child("users").child(currentUserId).observeSingleEvent(of: .value, with: {
-            snapshot in
-            let result = snapshot.value as? [String:AnyObject]
-            var goingEvent: [String] = result?["goingEvents"] as! [String] ?? [String]()
-            goingEvent.append(eventId)
-            databaseRef.child("users").child(currentUserId).updateChildValues(["goingEvents": goingEvent ])
-        })
     }
     static func updateNotGoingCount(eventId:String){
         databaseRef.child("Events").queryOrdered(byChild: "eventId").queryEqual(toValue:eventId).observe(.childAdded, with: {
@@ -244,13 +240,6 @@ class FirebaseManager: NSObject {
             let goingCount = result?["goingCount"]! as! String
             let updateCount = Int(goingCount)!-1
             databaseRef.child("Events").child(snapshot.key).updateChildValues(["goingCount": String(updateCount)])
-        })
-        databaseRef.child("users").child(currentUserId).observeSingleEvent(of: .value, with: {
-            snapshot in
-            let result = snapshot.value as? [String:AnyObject]
-            var goingEvent: [String] = result?["goingEvents"] as! [String]
-            goingEvent.removeAll{$0 == eventId}
-            databaseRef.child("users").child(currentUserId).updateChildValues(["goingEvents": goingEvent ])
         })
     }
     static func getAllEvents(completion: @escaping ([Event]) -> ()) {
